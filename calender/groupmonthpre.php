@@ -1,6 +1,6 @@
 <?php 
+// month with images
 $DAYTAG=array('MANGO'=>'MANGO','TEA'=>'TEA','WATCH'=>'WATCH','THRESH'=>'THRESH','FISH'=>'FISH','ASH'=>'ASH','SCHOOL'=>'SCHOOL');
-
 $MONTHOFDAY['1']=array(1,8,15,22,29);
 $MONTHOFDAY['2']=array(2,9,16,23,30);
 $MONTHOFDAY['3']=array(3,10,17,24,31);

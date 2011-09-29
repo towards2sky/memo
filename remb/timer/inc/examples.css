@@ -1,0 +1,228 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: Tahoma;
+	font-size: 11pt;
+}
+
+body {
+	text-align: center;
+	background: #053650 url('bg.jpg') 50% 0 no-repeat;
+}
+
+.project_title {
+	width: 200px;
+	float: left;
+	text-align: right;
+}
+
+h1 {
+	font-size: 24pt;
+	margin: 0;
+	line-height: 24pt;
+}
+
+.example_title {
+	text-align: right;
+}
+
+.example_title h1 {
+	font-size: 28pt;
+	padding-top: 20px;
+	line-height: 28pt;
+}
+
+.back_link {
+	text-align: right;
+}
+
+h2.subtitle {
+	font-size: 12pt;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+}
+
+h3 {
+	padding: 0;
+	margin: 0px 0px 0px 0px;
+	width: 300px;
+	float: left;
+	font-size: 22pt;
+	text-align: right;
+}
+
+#container {
+	margin: 30px auto;
+	width: 900px;
+	color: #eee;
+	text-align: left;
+}
+
+#examples_container {
+	margin: 30px auto;
+	width: 900px;
+	color: #eee;
+	text-align: left;
+}
+
+.content {
+	margin-left: 320px;
+	margin-bottom: 30px;
+	padding-top: 10px;
+}
+
+.projects_note {
+	width: 200px;
+	float: left;
+	text-align: right;
+	padding-top: 5px;
+	font-size: 8pt;
+}
+
+.start_content {
+	margin-top: 30px;
+}
+
+ul {
+	padding: 0;
+	margin: 0px 20px;
+	margin-top: 0;
+}
+li {
+	padding: 5px;
+	margin-left: 0;
+}
+
+a {
+	color: #B7E76B;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ddf3ff;
+}
+
+.features {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.features li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 250px;
+	float: left;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	background: transparent url('apply.png') 0 0 no-repeat;
+}
+
+.downloads {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.downloads li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 250px;
+	float: left;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	background: transparent url('filesave.png') 0 0 no-repeat;
+}
+
+.examples {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.examples li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 250px;
+	float: left;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	background: transparent url('kontact.png') 0 0 no-repeat;
+}
+
+
+.demos {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.demos li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 250px;
+	float: left;
+	padding-left: 0px;
+	height: 50px;
+	padding-bottom: 10px;
+}
+
+.demos li a {
+	display: block;
+	padding-left: 60px;
+}
+
+#example_dark {
+	background: transparent url('example_under_construction_dark.jpg') 0 0 no-repeat;
+}
+
+#example_light {
+	background: transparent url('example_under_construction_light.jpg') 0 0 no-repeat;
+}
+
+.countdown_controls {
+	margin: auto;
+	width: 400px;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.code {
+	position: relative;
+	background-color: #eee;
+	color: #333;
+	padding: 5px;
+	margin: 5px;
+	overflow: auto;
+	font: normal 9pt "Courier New";
+	padding-top: 2em;
+}
+
+.code .title {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.footer {
+	padding: 5px;
+	text-align: right;
+}
+
+.projects {
+	text-align: right;
+}
+
+.comment {
+	font-size: 9pt;
+	padding: 4px;
+	color: #999;
+}
+

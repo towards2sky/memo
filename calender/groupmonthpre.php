@@ -340,7 +340,7 @@ $ansIds[]=trim($m.$xt);
 if(isset($show[$m]))
 unset($show[$m]);
 //echo count($show);	
-if(count($show)==0){$show=$DAYS;  }
+//if(count($show)==0){$show=$DAYS;  }
 }?>
 </tr>
 </table>

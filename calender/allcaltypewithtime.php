@@ -133,6 +133,7 @@ var AnsIdsInarray=AnsIds.split(",");
 		document.getElementById(AnsIdsInarray[i]).style.background='#009900';
 		}else{
 		nextLavel=0;
+		document.getElementById(AnsIdsInarray[i]).value=answer;
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
 		}
 		if(nextLavel){
@@ -180,13 +181,6 @@ document.forms['calenderprect'].submit();
 
 
 <script type='text/javascript'>
-
-/*
-For this script
-Visit http://java-scripts.net 
-or http://wsabstract.com
-*/
-
 var ms = 0;
 var state = 0;
 var c=1;
@@ -222,7 +216,7 @@ var AnsIdsnew = document.getElementById('asnwerIds').value;
 var AnsIdsInarraynew=AnsIdsnew.split(",");
 
 var cyrid=AnsIdsInarraynew[aryid++];
-document.getElementById(cyrid).style.background='#FF0000';
+document.getElementById(cyrid).style.background='#053650';
 document.getElementById(cyrid).disabled=true;
 
 //var state = 0;
@@ -280,7 +274,7 @@ Time:
 	<option value="<?php echo $i;?>" <?php echo $selected; ?> ><?php echo $i;?></option>
 	<?php } ?>
 	</select>
-
+<input type='hidden' name='lavel' value='<?php echo $_POST['lavel']; ?>' />
 <INPUT TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="startstop()">
 </FORM>
 </CENTER>
@@ -322,16 +316,19 @@ Time:
 <?php 
 $xt=0;
 $show=$months;
-for($i=0;$i<$label;$i++){
+//echo '<pre>';
+//print_r($yearTag);
+//echo '</pre>';
+for($i=0;$i<$label;$i++){ $show=$months;
 ?>
 <tr>
 <td width="100%" align="left" colspan="2" style="padding-top:10px; ">
 <table align="left" width="100%">
 <tr>
 <?php 
-for($k=1;$k<7;$k++){ ++$xt; 
-
 $y=array_rand($yearTag);
+for($k=1;$k<9;$k++){ ++$xt; 
+
 ?>
 <td  align="right" width="90px">
 <?php 
@@ -345,6 +342,7 @@ $ansIds[]=trim($y.$m.$xt);
 unset($show[$m]);
 
 if(count($show)<1){ $show=$months; }
+
 }?>
 </tr>
 </table>

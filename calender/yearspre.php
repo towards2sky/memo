@@ -2,16 +2,18 @@
 include('connection.php');
 $calenderyearsql="SELECT * FROM newtagyear";
 $calobj = mysql_query($calenderyearsql);
+
+$AllowYear=array(18,19,20,21);
+
 	while($obj=mysql_fetch_object($calobj)){
 	$yearTag[]=trim($obj->tagid);
 	$sql=mysql_query("SELECT * FROM `calenderyear` WHERE `newtagyearid` LIKE '".trim($obj->tagid)."'");
 		while($obj1=mysql_fetch_object($sql)){
-		$cenobj[trim($obj->tagid)][trim($obj1->century)]=trim($obj1->celtype);
+		if(in_array(trim($obj1->century),$AllowYear)){
+			$cenobj[trim($obj->tagid)][trim($obj1->century)]=trim($obj1->celtype);
+		}
 		}
 	}
-
-$months=array(17,18,19,20,21);
-
 $yearsql="SELECT `tagyearid`,`yearext`,tagname FROM yeartype as yt JOIN newtagyear as nty ON yt.tagyearid=nty.tagid";
 $qyear = mysql_query($yearsql);
 
@@ -20,15 +22,12 @@ while($obj1=mysql_fetch_object($qyear))
 	$yearobj[$obj1->yearext]=$obj1->tagyearid;
 	}	
 	
-
 for($j=0;$j<200;$j++){
 $k=array_rand($yearobj);
 $v=array_rand($cenobj[trim($yearobj[$k])]);
 $answer[$v.$k]=$cenobj[trim($yearobj[$k])][$v];
 }
 	
-
-
 
 if(isset($_POST['time'])){
 $t=trim($_POST['time']);

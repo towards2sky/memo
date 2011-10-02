@@ -26,6 +26,9 @@
 
 <tr><td><hr /></td></tr>
 <tr>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="ready.php" >Ready to Ask</a></td>
+</tr>
+<tr>
 <td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="dates.php" >Dates Answars</a></td>
 </tr>
 <tr>

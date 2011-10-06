@@ -24,6 +24,15 @@ $MONTHTYPE['F']=array(1=>'ASH','SCHOOL','MANGO','TEA','WATCH','THRESH','FISH');
 
 $MONTHTYPE['G']=array(1=>'SCHOOL','MANGO','TEA','WATCH','THRESH','FISH','ASH');
 
+/*
+foreach($MONTHTYPE AS $mt=>$month){
+		foreach($month as $mk=>$m_ans){
+			foreach($MONTHOFDAY[$mk] as $date){
+			$new[$mt][$date]=$m_ans;
+			}
+		}
+}
+*/
 $TT['NO']='NO';
 $TT['YES']='YES';
 

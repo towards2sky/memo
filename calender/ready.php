@@ -22,7 +22,7 @@ while($obj1=mysql_fetch_object($qyear))
 	$yearobj[$obj1->yearext]=$obj1->tagyearid;
 	}	
 	
-for($j=0;$j<200;$j++){
+for($j=0;$j<400;$j++){
 $k=array_rand($yearobj);
 $v=array_rand($cenobj[trim($yearobj[$k])]);
 $DATEOBJ[$v.$k]=$cenobj[trim($yearobj[$k])][$v];
@@ -140,7 +140,7 @@ if(isset($_POST['lavel']) and $_POST['lavel']!=''){
 		$selectR10='selected="selected"';
         $label=10;
 		}else{
-		$label=5;
+		$label=3;
 		}	
 }else{
 $selectR3='selected="selected"';
@@ -154,10 +154,10 @@ $t=5;
 
 $select_seq=NULL;
 $select_ren=NULL;
-if(isset($_POST['displaytype']) AND trim($_POST['displaytype'])=='ren'){
-$select_ren='selected="selected"';
-}else{
+if(isset($_POST['displaytype']) AND trim($_POST['displaytype'])=='seq'){
 $select_seq='selected="selected"';
+}else{
+$select_ren='selected="selected"';
 }
 ?>
 <html>
@@ -190,6 +190,7 @@ var AnsIdsInarray=AnsIds.split(",");
 		nextLavel=0;
 		//document.getElementById(AnsIdsInarray[i]).value=answer;
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
+		document.getElementById(AnsIdsInarray[i]).disabled=false;
 		}
 		if(nextLavel){
 				//document.forms['calenderprect'].submit();
@@ -216,6 +217,7 @@ var AnsIdsInarray=AnsIds.split(",");
 		//document.getElementById(AnsIdsInarray[i]).value=answer;
 		//document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
 		document.getElementById('d'+AnsIdsInarray[i]).style.display='block';
+		document.getElementById(AnsIdsInarray[i]).disabled=true;
 		}
 		if(nextLavel){
 				//document.forms['calenderprect'].submit();

@@ -27,12 +27,10 @@ $k=array_rand($yearobj);
 $v=array_rand($cenobj[trim($yearobj[$k])]);
 $answer[$v.$k]=$cenobj[trim($yearobj[$k])][$v];
 }
-	
-
-if(isset($_POST['time'])){
-$t=trim($_POST['time']);
+if(isset($_POST['settime'])){
+$t=trim($_POST['settime']);
 }else{
-$t=7;
+$t=5;
 }
 ?>
 <html>
@@ -189,7 +187,7 @@ window.onload=display
 <CENTER>
 <FORM NAME="stpw" method="post" >
 Time:
-<select name="time" style="width:50px;" onChange="this.form.submit();" >
+<select name="settime" style="width:50px;" onChange="this.form.submit();" >
 	
 	<?php for($i=1;$i<11;$i++){ 
 	$selected='';
@@ -217,6 +215,7 @@ Time:
 <form name="calenderprect" method="post" >
 <tr>
 <td height="40" style="font-size:14px;" colspan="5">
+<input type="hidden" name="settime" value="<?php echo $t; ?>" />
 </td>
 </tr>
 </form>

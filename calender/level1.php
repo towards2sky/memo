@@ -348,7 +348,7 @@ Time:
 <td height="40" style="font-size:14px;" colspan="5">
 <select name="displaytype" style="width:100px;" onChange="this.form.submit();" >
 	<?php 
-	echo "<option value='ren' $select_ren >Rendom</option>";	
+	echo "<option value='ren' $select_ren >Random</option>";	
 	echo "<option value='seq' $select_seq >Sequence</option>";	
 	?>
 </select>
@@ -411,7 +411,7 @@ $ask=$year;
 //echo $months[$m];?><span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $ask; ?></span></td>
 <td align="center" valign="middle" >
 <div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $yearTag[$y]; ?></div>
-<input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="7" value="" maxlength="5" onKeyUp="strUpperCase(this);"  />
+<input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="7" value="" maxlength="7" onKeyUp="strUpperCase(this);"  />
 <input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $yearTag[$y]; ?>" />
 </td>
 <?php 

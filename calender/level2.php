@@ -348,7 +348,7 @@ Time:
 <td height="40" style="font-size:14px;" colspan="5">
 <select name="displaytype" style="width:100px;" onChange="this.form.submit();" >
 	<?php 
-	echo "<option value='ren' $select_ren >Rendom</option>";	
+	echo "<option value='ren' $select_ren >Random</option>";	
 	echo "<option value='seq' $select_seq >Sequence</option>";	
 	?>
 </select>

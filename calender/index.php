@@ -27,7 +27,7 @@
 <tr><td><hr /></td></tr>
 
 <tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="level.php" >
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="level1.php" >
 Game On Level</a></td>
 </tr>
 <tr>

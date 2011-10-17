@@ -67,48 +67,48 @@ $selectN='';
 $selectL='';
 $selectD='';
 $selectA='';
-if(isset($_POST['lavel']) and $_POST['lavel']!=''){ 
-	if(trim($_POST['lavel'])=='N'){
+if(isset($_POST['level']) and $_POST['level']!=''){ 
+	if(trim($_POST['level'])=='N'){
 	$selectN='selected="selected"';
-	$label=7;
+	$level=7;
 	$l='N';
 	for($i=8;$i<=14;$i++){
 	unset($yearTag[$i]);
 		}	
 	
-	}else if($_POST['lavel']=='L'){
+	}else if($_POST['level']=='L'){
 	$selectL='selected="selected"';
-	$label=7;
+	$level=7;
 	$l='L';
 	for($i=1;$i<=7;$i++){ 
 	unset($yearTag[$i]);
 		}	
 	
-	}else if($_POST['lavel']=='A'){
+	}else if($_POST['level']=='A'){
 	$selectA='selected="selected"';
 	$l='A';
-	$label=14;
+	$level=14;
 	}
-	else if($_POST['lavel']=='DN'){
+	else if($_POST['level']=='DN'){
 	$selectDN='selected="selected"';
-	$label=7;
+	$level=7;
 	$l='L';
 	for($i=8;$i<=14;$i++){
 	unset($yearTag[$i]);
 		}
 	$months= array('3'=>'MAR','7'=>'JULY','10'=>'OCT','11'=>'NOV','12'=>'DEC');
 		}	
-		else if($_POST['lavel']=='DL'){
+		else if($_POST['level']=='DL'){
 	$selectDL='selected="selected"';
-	$label=7;
+	$level=7;
 	$l='L';
 	for($i=1;$i<=7;$i++){ 
 	unset($yearTag[$i]);
 		}
 	$months= array('4'=>'APR','7'=>'JULY','8'=>'AUG','11'=>'NOV','12'=>'DEC');
-		}else if($_POST['lavel']=='UN'){
+		}else if($_POST['level']=='UN'){
 	$selectUN='selected="selected"';
-	$label=7;
+	$level=7;
 	$l='L';
 	for($i=8;$i<=14;$i++){
 	unset($yearTag[$i]);
@@ -118,9 +118,9 @@ if(isset($_POST['lavel']) and $_POST['lavel']!=''){
 	unset($months[$k]);
 	}
 		}	
-		else if($_POST['lavel']=='UL'){
+		else if($_POST['level']=='UL'){
 	$selectUL='selected="selected"';
-	$label=7;
+	$level=7;
 	$l='L';
 	for($i=1;$i<=7;$i++){ 
 	unset($yearTag[$i]);
@@ -130,21 +130,21 @@ if(isset($_POST['lavel']) and $_POST['lavel']!=''){
 	unset($months[$k]);
 	}
 		}//saini
-		else if($_POST['lavel']=='R3'){
+		else if($_POST['level']=='R3'){
 		$selectR3='selected="selected"';
-        $label=3;
-		}else if($_POST['lavel']=='R6'){
+        $level=3;
+		}else if($_POST['level']=='R6'){
 		$selectR6='selected="selected"';
-        $label=6;
-		}else if($_POST['lavel']=='R10'){
+        $level=6;
+		}else if($_POST['level']=='R10'){
 		$selectR10='selected="selected"';
-        $label=10;
+        $level=10;
 		}else{
-		$label=3;
+		$level=3;
 		}	
 }else{
 $selectR3='selected="selected"';
-$label=3;
+$level=3;
 }
 if(isset($_POST['settime'])){
 $t=trim($_POST['settime']);
@@ -186,17 +186,14 @@ var AnsIdsInarray=AnsIds.split(",");
 
 		if(input.trim()==answer.trim()){ 
 		document.getElementById(AnsIdsInarray[i]).style.background='#009900';
+		document.getElementById(AnsIdsInarray[i]).disabled=true;
 		}else{
 		nextLavel=0;
 		//document.getElementById(AnsIdsInarray[i]).value=answer;
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
 		document.getElementById(AnsIdsInarray[i]).disabled=false;
-		}
-		if(nextLavel){
-				//document.forms['calenderprect'].submit();
 		}	
 	}
-
 }
 function showAnser(){
 state=0;
@@ -212,6 +209,7 @@ var AnsIdsInarray=AnsIds.split(",");
 		if(input.trim()==answer.trim()){ 
 		//document.getElementById(AnsIdsInarray[i]).style.background='#009900';
 		document.getElementById('d'+AnsIdsInarray[i]).style.display='none';
+		
 		}else{
 		nextLavel=0;
 		//document.getElementById(AnsIdsInarray[i]).value=answer;
@@ -285,7 +283,8 @@ document.stpw.time.value = ms;
 function swreset() {
 state = 0;
 ms = 0;
-document.stpw.time.value = ms;
+//document.stpw.time.value = ms;
+c=1;
 }
 
 function display() {
@@ -326,7 +325,7 @@ Time:
 	<option value="<?php echo $i;?>" <?php echo $selected; ?> ><?php echo $i;?></option>
 	<?php } ?>
 	</select>
-<input type='hidden' name='lavel' value='<?php echo $_POST['lavel']; ?>' />
+<input type='hidden' name='level' value='<?php echo $_POST['level']; ?>' />
 <input type='hidden' name='displaytype' value='<?php echo $_POST['displaytype']; ?>' />
 <INPUT TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="startstop()">
 </FORM>
@@ -348,13 +347,13 @@ Time:
 <td height="40" style="font-size:14px;" colspan="5">
 <select name="displaytype" style="width:100px;" onChange="this.form.submit();" >
 	<?php 
-	echo "<option value='ren' $select_ren >Random</option>";	
+	echo "<option value='ren' $select_ren >Randam</option>";	
 	echo "<option value='seq' $select_seq >Sequence</option>";	
 	?>
 </select>
 	
 <input type='hidden' name='settime' value='<?php echo $t; ?>' />
-	<select name="lavel" style="width:200px;" onChange="this.form.submit();" >
+	<select name="level" style="width:200px;" onChange="this.form.submit();" >
 	<option value="R3" <?php echo $selectR3; ?> >Randam 21</option>
 	<option value="R6" <?php echo $selectR6; ?> >Randam 42</option>
 	<option value="R10" <?php echo $selectR10; ?> >Randam 70</option>
@@ -384,11 +383,12 @@ echo '</pre>';
 $xt=0;
 $show=$months;
 $dateyear=$DATEOBJ;
-for($i=0;$i<$label;$i++){ $show=$months;
+for($i=0;$i<$level;$i++){ $show=$months;
 ?>
 <tr>
 <td width="100%" align="left" colspan="2" style="padding-top:10px; ">
 <table align="left" width="100%">
+
 <tr>
 <?php 
 if($select_seq){

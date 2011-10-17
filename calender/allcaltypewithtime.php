@@ -1,6 +1,6 @@
 <?php 
 $yearTag = array('1'=>'N-1','N-2','N-3','N-4','N-5','N-6','N-7','L-1','L-2','L-3','L-4','L-5','L-6','L-7');
-$months= array('1'=>'JAN','2'=>'FAB','3'=>'MAR','4'=>'APR','5'=>'MAY','6'=>'JUNE','7'=>'JULY','8'=>'AUG','9'=>'SEPT','10'=>'OCT','11'=>'NOV','12'=>'DEC');
+$months= array('1'=>'JAN','2'=>'FEB','3'=>'MAR','4'=>'APR','5'=>'MAY','6'=>'JUNE','7'=>'JULY','8'=>'AUG','9'=>'SEPT','10'=>'OCT','11'=>'NOV','12'=>'DEC');
 
 $answer[1]= array('1'=>'B','2'=>'E','3'=>'E','4'=>'A','5'=>'C','6'=>'F','7'=>'A','8'=>'D','9'=>'G','10'=>'B','11'=>'E','12'=>'G');
 
@@ -115,10 +115,10 @@ $t=5;
 
 $select_seq=NULL;
 $select_ren=NULL;
-if(isset($_POST['displaytype']) AND trim($_POST['displaytype'])=='ren'){
-$select_ren='selected="selected"';
-}else{
+if(isset($_POST['displaytype']) AND trim($_POST['displaytype'])=='seq'){
 $select_seq='selected="selected"';
+}else{
+$select_ren='selected="selected"';
 }
 ?>
 <html>
@@ -127,10 +127,10 @@ $select_seq='selected="selected"';
 <title>Memory</title>
 <style type="text/css">
   div.answer {
-   width: 16px;
-   padding: 5px; margin: 10px; z-index: 100;
-   color: white; background: #9D9E99;
-   font: 16px Verdana,bold,sans-serif; text-align: center;
+  width: 20px;
+   padding: 2px; margin: 2px; z-index: 100;
+   color: #9D9E99; 
+   font: 10px Verdana,bold,sans-serif; text-align: center;
    }
 </style>
 <script type="text/javascript" language="javascript" >
@@ -148,6 +148,7 @@ var AnsIdsInarray=AnsIds.split(",");
 		if(input.trim()==answer.trim()){ 
 		document.getElementById(AnsIdsInarray[i]).style.background='#009900';
 		//document.getElementById('d'+AnsIdsInarray[i]).style.display='none';
+		document.getElementById(AnsIdsInarray[i]).disabled=true;
 		}else{
 		nextLavel=0;
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
@@ -175,6 +176,7 @@ var AnsIdsInarray=AnsIds.split(",");
 		if(input.trim()==answer.trim()){ 
 		//document.getElementById(AnsIdsInarray[i]).style.background='#009900';
 		document.getElementById('d'+AnsIdsInarray[i]).style.display='none';
+		
 		}else{
 		nextLavel=0;
 		//document.getElementById(AnsIdsInarray[i]).value=answer;
@@ -316,7 +318,7 @@ Time:
 <input type='hidden' name='settime' value='<?php echo $t; ?>' />
 <select name="displaytype" style="width:100px;" onChange="this.form.submit();" >
 	<?php 
-	echo "<option value='ren' $select_ren >Rendom</option>";	
+	echo "<option value='ren' $select_ren >Randam</option>";	
 	echo "<option value='seq' $select_seq >Sequence</option>";	
 	?>
 	</select>
@@ -345,31 +347,36 @@ $show=$months;
 //echo '<pre>';
 //print_r($yearTag);
 //echo '</pre>';
-for($i=0;$i<$label;$i++){ $show=$months;
+for($i=0;$i<$label;$i++){ //$show=$months;
 ?>
 <tr>
 <td width="100%" align="left" colspan="2" style="padding-top:10px; ">
 <table align="left" width="100%">
 <tr>
+
 <?php 
-if($select_seq){
-$y=array_rand($yearTag);}
+if($select_seq){$y=array_rand($yearTag); $show=$months;}
+
 for($k=1;$k<9;$k++){ ++$xt; 
-if(!$select_seq){
-$y=array_rand($yearTag);}
-?>
-<td  align="right" width="90px">
-<?php 
+
+if(count($show)<1){ $show=$months; }
+
+if(!$select_seq){$y=array_rand($yearTag);}
+
 $m=array_rand($show);
-//echo $months[$m];?><span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $yearTag[$y].'=>'.$show[$m];?></span></td>
-<td align="center" valign="middle" ><div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $answer[$y][$m]; ?></div><input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="2" value="" maxlength="1" onKeyUp="strUpperCase(this);"  />
+?>
+<td align="right" width="90px">
+<span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $yearTag[$y].'=>'.$show[$m];?></span>
+</td>
+<td align="center" valign="middle" >
+<div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $answer[$y][$m]; ?></div>
+<input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="2" value="" maxlength="1" onKeyUp="strUpperCase(this);"  />
 <input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $answer[$y][$m]; ?>" />
 </td>
 <?php 
 $ansIds[]=trim($y.$m.$xt);
 unset($show[$m]);
-if(count($show)<1){ $show=$months; }
-}?>
+} ?>
 </tr>
 </table>
 </td>

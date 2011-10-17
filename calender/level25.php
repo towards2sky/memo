@@ -132,7 +132,7 @@ if(isset($_POST['level']) and $_POST['level']!=''){
 		}//saini
 		else if($_POST['level']=='R3'){
 		$selectR3='selected="selected"';
-        $level=3;
+        $level=4;
 		}else if($_POST['level']=='R6'){
 		$selectR6='selected="selected"';
         $level=6;
@@ -140,16 +140,16 @@ if(isset($_POST['level']) and $_POST['level']!=''){
 		$selectR10='selected="selected"';
         $level=10;
 		}else{
-		$level=3;
+		$level=4;
 		}	
 }else{
 $selectR3='selected="selected"';
-$level=3;
+$level=4;
 }
 if(isset($_POST['settime'])){
 $t=trim($_POST['settime']);
 }else{
-$t=5;
+$t=6;
 }
 
 $select_seq=NULL;
@@ -159,6 +159,41 @@ $select_seq='selected="selected"';
 }else{
 $select_ren='selected="selected"';
 }
+
+// get all month by tag
+
+$MONTHOFDAY['1']=array(1,8,15,22,29);
+$MONTHOFDAY['2']=array(2,9,16,23,30);
+$MONTHOFDAY['3']=array(3,10,17,24,31);
+$MONTHOFDAY['4']=array(4,11,18,25);
+$MONTHOFDAY['5']=array(5,12,19,26);
+$MONTHOFDAY['6']=array(6,13,20,27);
+$MONTHOFDAY['7']=array(7,14,21,28);
+
+//$MONTHTYPE['MIX']=array();
+$MONTHTYPE['A']=array(1=>'MANGO','TEA','WATCH','THRESH','FISH','ASH','SCHOOL');
+
+$MONTHTYPE['B']=array(1=>'TEA','WATCH','THRESH','FISH','ASH','SCHOOL','MANGO');
+
+$MONTHTYPE['C']=array(1=>'WATCH','THRESH','FISH','ASH','SCHOOL','MANGO','TEA');
+
+$MONTHTYPE['D']=array(1=>'THRESH','FISH','ASH','SCHOOL','MANGO','TEA','WATCH');
+
+$MONTHTYPE['E']=array(1=>'FISH','ASH','SCHOOL','MANGO','TEA','WATCH','THRESH');
+
+$MONTHTYPE['F']=array(1=>'ASH','SCHOOL','MANGO','TEA','WATCH','THRESH','FISH');
+
+$MONTHTYPE['G']=array(1=>'SCHOOL','MANGO','TEA','WATCH','THRESH','FISH','ASH');
+
+foreach($MONTHTYPE AS $mt=>$month){
+		foreach($month as $mk=>$m_ans){
+			foreach($MONTHOFDAY[$mk] as $date){
+			$monthtag[$mt][$date]=$m_ans;
+			}
+		}
+}
+
+//================
 ?>
 <html>
 <head>
@@ -166,10 +201,10 @@ $select_ren='selected="selected"';
 <title>Memory</title>
 <style type="text/css">
   div.answer {
-  width: 20px;
+   width: 20px;
    padding: 2px; margin: 2px; z-index: 100;
    color: #9D9E99; 
-   font: 12px Verdana,bold,sans-serif; text-align: center;
+   font: 10px Verdana,bold,sans-serif; text-align: center;
    }
 </style>
 <script type="text/javascript" language="javascript" >
@@ -189,15 +224,14 @@ var AnsIdsInarray=AnsIds.split(",");
 		document.getElementById(AnsIdsInarray[i]).disabled=true;
 		}else{
 		nextLavel=0;
-		//document.getElementById(AnsIdsInarray[i]).value=answer;
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
 		document.getElementById(AnsIdsInarray[i]).disabled=false;
+		wid=AnsIdsInarray[i]+',';
 		}
 		if(nextLavel){
 				//document.forms['calenderprect'].submit();
 		}	
 	}
-
 }
 function showAnser(){
 state=0;
@@ -318,7 +352,7 @@ window.onload=display
 Time:
 <select name="settime" style="width:50px;" onChange="this.form.submit();" >
 	
-	<?php for($i=1;$i<11;$i++){ 
+	<?php for($i=1;$i<15;$i++){ 
 	$selected='';
 	if($t==$i){
 	$selected='selected="selected"';
@@ -341,7 +375,7 @@ Time:
 </tr>
 
 <tr>
-<td height="40" style="color:#FFFFFF; font-size:30px; font-weight:800; padding-bottom:20px;" colspan="5" align="center">Level 2</td>
+<td height="40" style="color:#FFFFFF; font-size:30px; font-weight:800; padding-bottom:20px;" colspan="5" align="center">Level 2.5</td>
 </tr>
 <form name="calenderprect" method="post" >
 
@@ -381,6 +415,7 @@ Time:
 $xt=0;
 $show=$months;
 $dateyear=$DATEOBJ;
+
 for($i=0;$i<$level;$i++){ $show=$months;
 ?>
 <tr>
@@ -391,25 +426,30 @@ for($i=0;$i<$level;$i++){ $show=$months;
 if($select_seq){
 $y=array_rand($yearTag);}
 
-for($k=1;$k<8;$k++){ ++$xt; 
+for($k=1;$k<6;$k++){ ++$xt; 
 if(!$select_seq){
 $y=array_rand($yearTag);}
 ?>
-<td  align="right" width="90px">
+<td  align="right" width="150px">
 <?php 
 $m=array_rand($show);
 
-$year=array_search($yearTag[$y],$DATEOBJ);
+$year=$yearTag[$y];//array_search($yearTag[$y],$DATEOBJ);
 if(!$year){
 $DATEOBJ=$dateyear;
-$year=array_search($yearTag[$y],$DATEOBJ);
+$year=$yearTag[$y];//array_search($yearTag[$y],$DATEOBJ);
 }
-$ask=$year.'=>'.$show[$m];
+$d=rand(1,31);
+if($d<10){
+$ask=$year.'='.$show[$m].'=0'.$d;
+}else{
+$ask=$year.'='.$show[$m].'='.$d;
+}
 //echo $months[$m];?><span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $ask; ?></span></td>
 <td align="center" valign="middle" >
-<div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $answer[$y][$m]; ?></div>
-<input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="2" value="" maxlength="1" onKeyUp="strUpperCase(this);"  />
-<input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $answer[$y][$m]; ?>" />
+<div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $monthtag[$answer[$y][$m]][$d]; ?></div>
+<input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="7" value="" maxlength="7" onKeyUp="strUpperCase(this);"  />
+<input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $monthtag[$answer[$y][$m]][$d]; ?>" />
 </td>
 <?php 
 $ansIds[]=trim($y.$m.$xt);
@@ -430,7 +470,8 @@ unset($yearTag[$y]);
 <input type="button" name="check" value="Check" onClick="javascript: checkanswer();" />
 <input type="button" name="check" value="Show Ans" onClick="javascript: showAnser();" />
 <input type="button" name="Again" value="Once Again" onClick="javascript: submitform();"/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="level25.php" >NEXT</a>
+&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="level3.php" >NEXT</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="hidden" id="asnwerIds" value="<?php echo implode(',',$ansIds); ?>" />
 </td></tr>
 </table>

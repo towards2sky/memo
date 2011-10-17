@@ -45,14 +45,20 @@ $tagtye='NO';
 if(isset($_POST['settime'])){
 $settime=trim($_POST['settime']);
 }else{
-$settime=7;
+$settime=5;
 }
 
-if(isset($_POST['monthtype'])){
-$monthtype=trim($_POST['monthtype']);
+if(isset($_GET['r']) && $_GET['r']){ 
+ $monthtype=array_rand($MONTHTYPE);
 }else{
-$monthtype='MIX';
+	if(isset($_POST['monthtype'])){
+	$monthtype=trim($_POST['monthtype']);
+	}else{
+	$monthtype='MIX';
+	}
 }
+
+
 if(count($MONTHTYPE[$monthtype])>1){
 $hrt=3;
 $vrt=11;
@@ -102,6 +108,14 @@ $vrt=7;
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Memory</title>
+<style type="text/css">
+  div.answer {
+   width: 20px;
+   padding: 2px; margin: 2px; z-index: 100;
+   color: #9D9E99; 
+   font: 12px Verdana,bold,sans-serif; text-align: center;
+   }
+</style>
 <script type="text/javascript" language="javascript" >
 function checkanswer(){ state=0;
 var AnsIds = document.getElementById('asnwerIds').value;
@@ -115,9 +129,11 @@ var AnsIdsInarray=AnsIds.split(",");
 
 		if(input.trim()==answer.trim()){ 
 		document.getElementById(AnsIdsInarray[i]).style.background='#009900';
+		document.getElementById(AnsIdsInarray[i]).disabled=true;
 		}else{
 		nextLavel=0;
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
+		document.getElementById(AnsIdsInarray[i]).disabled=false;
 		}
 		if(nextLavel){
 				//document.forms['calenderprect'].submit();
@@ -129,6 +145,37 @@ String.prototype.trim = function() {
 a = this.replace(/^\s+/, '');
 return a.replace(/\s+$/, '');
 };
+
+
+function showAnser(){
+state=0;
+var AnsIds = document.getElementById('asnwerIds').value;
+//alert(AnsIds);
+var AnsIdsInarray=AnsIds.split(",");
+//alert(AnsIdsInarray.length)
+	var nextLavel=1;
+	for(var i=0; i<AnsIdsInarray.length; i++){
+	var input = document.getElementById(AnsIdsInarray[i]).value;
+	var answer = document.getElementById('a'+AnsIdsInarray[i]).value;
+
+		if(input.trim()==answer.trim()){ 
+		//document.getElementById(AnsIdsInarray[i]).style.background='#009900';
+		document.getElementById('d'+AnsIdsInarray[i]).style.display='none';
+		
+		}else{
+		nextLavel=0;
+		//document.getElementById(AnsIdsInarray[i]).value=answer;
+		//document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
+		document.getElementById('d'+AnsIdsInarray[i]).style.display='block';
+		document.getElementById(AnsIdsInarray[i]).disabled=true;
+		}
+		if(nextLavel){
+				//document.forms['calenderprect'].submit();
+		}	
+	}
+
+}
+
 
 function capitals(that) { alert(that);
 var Cap = false;
@@ -312,7 +359,7 @@ Time:
 </tr>
 </form>
 <tr>
-<td width="100%" style="color:#FFFFFF; font-size:50px; font-weight:800;padding-bottom:20px;"  align="center"><?php echo $monthtype; ?> <img src="images/monthtype/<?php echo $monthtype?>.jpg" ></td>
+<td width="100%" style="color:#FFFFFF; font-size:50px; font-weight:800;padding-bottom:20px;"  align="center"><?php echo $monthtype;  if($monthtype!='MIX'){?> <img src="images/monthtype/<?php echo $monthtype?>.jpg" > <?php } ?></td>
 </tr>
 
 <?php 
@@ -337,10 +384,12 @@ if(file_exists('images/mday/'.$m.'.jpeg'))
 else if (file_exists('images/mday/'.$m.'.jpg')){$mdayimg='images/mday/'.$m.'.jpg';}
 else {$mdayimg='images/NO.jpeg';}
 
-?><span style="color:#FFFFFF; font-weight:bold;"><img width="100" height="80" src="<?php echo $mdayimg; ?>" ><?php echo $m;?></span>
-<span style="color:#999999"><?php //echo $k,$m;?></span>
+
+?>
+<span style="color:#FFFFFF; font-weight:bold;"><img width="100" height="80" src="<?php echo $mdayimg; ?>" ><?php echo $m;?></span>
+
 </td>
-<td align="center" valign="middle" >
+<td align="center" valign="middle" ><div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $answer[$y][$m]; ?></div>
 <input id="<?php echo trim($m.$xt); ?>" type="text" size="7" value="<?php //echo $dates[$m]; ?>" maxlength="10" onKeyUp="strUpperCase(this);"  />
 <input type="hidden" id="a<?php echo trim($m.$xt); ?>" value="<?php echo $DAYS[$m]; ?>" />
 </td>
@@ -376,7 +425,7 @@ $m=array_rand($show);
 //echo $months[$m];?><span style="color:#FFFFFF; font-weight:bold;"><?php echo $m;?></span>
 <span style="color:#999999"><?php //echo $k,$m;?></span>
 </td>
-<td align="center" valign="middle" >
+<td align="center" valign="middle" ><div style="display:none;" class="answer" id="d<?php echo trim($m.$xt); ?>" ><?php echo $DAYS[$m]; ?></div>
 <input id="<?php echo trim($m.$xt); ?>" type="text" size="7" value="<?php //echo $dates[$m]; ?>" maxlength="10" onKeyUp="strUpperCase(this);"  />
 <input type="hidden" id="a<?php echo trim($m.$xt); ?>" value="<?php echo $DAYS[$m]; ?>" />
 </td>
@@ -397,8 +446,9 @@ if(count($show)==0){$show=$DAYS;  }
 ?>
 <tr><td colspan="2" align="center" style="padding-top:20px;">
 <input type="button" name="check" value="Check" onClick="javascript: checkanswer();" />
+<input type="button" name="check" value="Show Ans" onClick="javascript: showAnser();" />
 <input type="button" name="Again" value="Once Again" onClick="javascript: submitform();"/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="allcaltypewithtime.php" >RESTART</a>
+&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="groupmonthpre.php?r=1" >RANDAM</a>
 <input type="hidden" id="asnwerIds" value="<?php echo implode(',',$ansIds); ?>" />
 </td></tr>
 </table>

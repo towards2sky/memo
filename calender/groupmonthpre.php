@@ -121,7 +121,7 @@ function checkanswer(){ state=0;
 var AnsIds = document.getElementById('asnwerIds').value;
 
 var AnsIdsInarray=AnsIds.split(",");
-//alert(AnsIdsInarray.length)
+alert(AnsIdsInarray.length)
 	var nextLavel=1;
 	for(var i=0; i<AnsIdsInarray.length; i++){
 	var input = document.getElementById(AnsIdsInarray[i]).value;
@@ -231,7 +231,7 @@ then.setTime(then.getTime() - ms);
 state = 0;
 now = new Date();
 ms = now.getTime() - then.getTime();
-document.stpw.time.value = ms;
+//document.stpw.time.value = ms;
    }
 }
 
@@ -252,11 +252,16 @@ var AnsIdsnew = document.getElementById('asnwerIds').value;
 var AnsIdsInarraynew=AnsIdsnew.split(",");
 
 var cyrid=AnsIdsInarraynew[aryid++];
+var checkid=document.getElementById(cyrid);
+if(checkid!=null){
 document.getElementById(cyrid).style.background='#053650';
 document.getElementById(cyrid).disabled=true;
+}
 
 //var state = 0;
 //startstop();
+//alert(c);
+
 //alert(c);
 c=c+1;
 //ms=1;
@@ -287,7 +292,7 @@ var AnsIdsInarray=AnsIds.split(",");
 
 
 }
-document.stpw.time.value = ms;
+//document.stpw.time.value = ms;
    }
 }
 
@@ -345,10 +350,6 @@ Time:
 	<a style="color:#FFFFFF; text-decoration:none" href="index.php" >BACK TO HOME</a>
 	</td>
 </tr>
-
-<tr>
-<td height="40" style="font-size:14px;" colspan="5"></td>
-</tr>
 <form name="calenderprect" method="post" >
 <tr>
 <td height="40" style="font-size:14px;" colspan="5">
@@ -363,6 +364,9 @@ Time:
 </tr>
 
 <?php 
+if($monthtype=='MIX'){
+$vrt=10;
+}
 if($tagtye=='YES'){
 $xt=0;
 $show=$DAYS;
@@ -435,7 +439,7 @@ if(isset($show[$m]))
 unset($show[$m]);
 //echo count($show);	
 if(count($show)==0){$show=$DAYS;  }
-}?>
+} ?>
 </tr>
 </table>
 </td>

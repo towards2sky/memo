@@ -299,12 +299,15 @@ var AnsIdsnew = document.getElementById('asnwerIds').value;
 var AnsIdsInarraynew=AnsIdsnew.split(",");
 
 var cyrid=AnsIdsInarraynew[aryid++];
+var checkid=document.getElementById(cyrid);
+if(checkid!=null){
 document.getElementById(cyrid).style.background='#053650';
 document.getElementById(cyrid).disabled=true;
+}
 
 c=c+1;
 }
-document.stpw.time.value = ms;
+//document.stpw.time.value = ms;
    }
 }
 

@@ -132,7 +132,7 @@ if(isset($_POST['level']) and $_POST['level']!=''){
 		}//saini
 		else if($_POST['level']=='R3'){
 		$selectR3='selected="selected"';
-        $level=3;
+        $level=4;
 		}else if($_POST['level']=='R6'){
 		$selectR6='selected="selected"';
         $level=6;
@@ -140,16 +140,16 @@ if(isset($_POST['level']) and $_POST['level']!=''){
 		$selectR10='selected="selected"';
         $level=10;
 		}else{
-		$level=3;
+		$level=4;
 		}	
 }else{
 $selectR3='selected="selected"';
-$level=3;
+$level=4;
 }
 if(isset($_POST['settime'])){
 $t=trim($_POST['settime']);
 }else{
-$t=12;
+$t=6;
 }
 
 $select_seq=NULL;
@@ -212,8 +212,6 @@ function checkanswer(){
 state=0;
 var AnsIds = document.getElementById('asnwerIds').value;
 //alert(AnsIds);
-//var wid='';
-
 var AnsIdsInarray=AnsIds.split(",");
 //alert(AnsIdsInarray.length)
 	var nextLavel=1;
@@ -229,9 +227,11 @@ var AnsIdsInarray=AnsIds.split(",");
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
 		document.getElementById(AnsIdsInarray[i]).disabled=false;
 		wid=AnsIdsInarray[i]+',';
+		}
+		if(nextLavel){
+				//document.forms['calenderprect'].submit();
 		}	
 	}
-		
 }
 function showAnser(){
 state=0;
@@ -333,7 +333,7 @@ var AnsIdsnew = document.getElementById('asnwerIds').value;
 var AnsIdsInarraynew=AnsIdsnew.split(",");
 
 var cyrid=AnsIdsInarraynew[aryid++];
-var checkid=document.getElementById(cyrid);
+var checkid=document.getElementById(cyrid)
 if(checkid!=null){
 document.getElementById(cyrid).style.background='#053650';
 document.getElementById(cyrid).disabled=true;
@@ -378,7 +378,7 @@ Time:
 </tr>
 
 <tr>
-<td height="40" style="color:#FFFFFF; font-size:30px; font-weight:800; padding-bottom:20px;" colspan="5" align="center">Level 3</td>
+<td height="40" style="color:#FFFFFF; font-size:30px; font-weight:800; padding-bottom:20px;" colspan="5" align="center">Level 2.5</td>
 </tr>
 <form name="calenderprect" method="post" >
 
@@ -418,6 +418,7 @@ Time:
 $xt=0;
 $show=$months;
 $dateyear=$DATEOBJ;
+
 for($i=0;$i<$level;$i++){ $show=$months;
 ?>
 <tr>
@@ -428,18 +429,20 @@ for($i=0;$i<$level;$i++){ $show=$months;
 if($select_seq){
 $y=array_rand($yearTag);}
 
-for($k=1;$k<7;$k++){ ++$xt; 
+for($k=1;$k<6;$k++){ ++$xt; 
 if(!$select_seq){
 $y=array_rand($yearTag);}
 ?>
 <td  align="right" width="150px">
 <?php 
+$s=rand(1,12);
+if($s==1 ||$s==3 ||$s==7 ||$s==4 ||$s==6){
 $m=array_rand($show);
 
-$year=array_search($yearTag[$y],$DATEOBJ);
+$year=$yearTag[$y];//array_search($yearTag[$y],$DATEOBJ);
 if(!$year){
 $DATEOBJ=$dateyear;
-$year=array_search($yearTag[$y],$DATEOBJ);
+$year=$yearTag[$y];//array_search($yearTag[$y],$DATEOBJ);
 }
 $d=rand(1,31);
 if($d<10){
@@ -447,11 +450,33 @@ $ask=$year.'='.$show[$m].'=0'.$d;
 }else{
 $ask=$year.'='.$show[$m].'='.$d;
 }
-//echo $months[$m];?><span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $ask; ?></span></td>
+$ansval=$monthtag[$answer[$y][$m]][$d];
+}
+else
+{
+$m=array_rand($show);
+
+$year=array_search($yearTag[$y],$DATEOBJ);
+if(!$year){
+$DATEOBJ=$dateyear;
+$year=array_search($yearTag[$y],$DATEOBJ);
+}
+$ask=$year.'=>'.$show[$m];
+
+$ansval=$answer[$y][$m];
+}
+
+
+//echo $months[$m];
+
+?>
+
+
+<span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $ask; ?></span></td>
 <td align="center" valign="middle" >
-<div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $monthtag[$answer[$y][$m]][$d]; ?></div>
+<div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $ansval; ?></div>
 <input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="7" value="" maxlength="7" onKeyUp="strUpperCase(this);"  />
-<input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $monthtag[$answer[$y][$m]][$d]; ?>" />
+<input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $ansval; ?>" />
 </td>
 <?php 
 $ansIds[]=trim($y.$m.$xt);
@@ -472,6 +497,7 @@ unset($yearTag[$y]);
 <input type="button" name="check" value="Check" onClick="javascript: checkanswer();" />
 <input type="button" name="check" value="Show Ans" onClick="javascript: showAnser();" />
 <input type="button" name="Again" value="Once Again" onClick="javascript: submitform();"/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="level29.php" >NEXT</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <input type="hidden" id="asnwerIds" value="<?php echo implode(',',$ansIds); ?>" />
 </td></tr>

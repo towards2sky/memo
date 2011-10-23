@@ -333,12 +333,15 @@ var AnsIdsnew = document.getElementById('asnwerIds').value;
 var AnsIdsInarraynew=AnsIdsnew.split(",");
 
 var cyrid=AnsIdsInarraynew[aryid++];
+var checkid=document.getElementById(cyrid);
+if(checkid!=null){
 document.getElementById(cyrid).style.background='#053650';
 document.getElementById(cyrid).disabled=true;
+}
 
 c=c+1;
 }
-document.stpw.time.value = ms;
+//document.stpw.time.value = ms;
    }
 }
 
@@ -470,7 +473,7 @@ unset($yearTag[$y]);
 <input type="button" name="check" value="Check" onClick="javascript: checkanswer();" />
 <input type="button" name="check" value="Show Ans" onClick="javascript: showAnser();" />
 <input type="button" name="Again" value="Once Again" onClick="javascript: submitform();"/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="level3.php" >NEXT</a>
+&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="level27.php" >NEXT</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <input type="hidden" id="asnwerIds" value="<?php echo implode(',',$ansIds); ?>" />
 </td></tr>

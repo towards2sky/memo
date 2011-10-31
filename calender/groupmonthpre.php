@@ -121,7 +121,7 @@ function checkanswer(){ state=0;
 var AnsIds = document.getElementById('asnwerIds').value;
 
 var AnsIdsInarray=AnsIds.split(",");
-alert(AnsIdsInarray.length)
+//alert(AnsIdsInarray.length)
 	var nextLavel=1;
 	for(var i=0; i<AnsIdsInarray.length; i++){
 	var input = document.getElementById(AnsIdsInarray[i]).value;
@@ -318,7 +318,6 @@ Tag Typ:
 	</select>
 Month Typ:
 <select name="monthtype" style="width:50px;" onChange="this.form.submit();" >
-	
 	<?php foreach($MONTHTYPE as $k=>$v){ 
 	$selectedmonthtyp='';
 	if($monthtype==$k){
@@ -387,8 +386,6 @@ if(file_exists('images/mday/'.$m.'.jpeg'))
 {$mdayimg='images/mday/'.$m.'.jpeg';}
 else if (file_exists('images/mday/'.$m.'.jpg')){$mdayimg='images/mday/'.$m.'.jpg';}
 else {$mdayimg='images/NO.jpeg';}
-
-
 ?>
 <span style="color:#FFFFFF; font-weight:bold;"><img width="100" height="80" src="<?php echo $mdayimg; ?>" ><?php echo $m;?></span>
 

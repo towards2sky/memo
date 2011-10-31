@@ -149,7 +149,7 @@ $level=3;
 if(isset($_POST['settime'])){
 $t=trim($_POST['settime']);
 }else{
-$t=12;
+$t=10;
 }
 
 $select_seq=NULL;
@@ -453,12 +453,11 @@ $ask=$year.'='.$show[$m].'='.$d;
 <input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="7" value="" maxlength="7" onKeyUp="strUpperCase(this);"  />
 <input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $monthtag[$answer[$y][$m]][$d]; ?>" />
 </td>
-<?php 
+<?php
 $ansIds[]=trim($y.$m.$xt);
 unset($show[$m]);
 unset($DATEOBJ[$year]);
 if(count($show)<1){ $show=$months; }
-
 
 }?>
 </tr>

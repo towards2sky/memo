@@ -378,7 +378,7 @@ Time:
 </tr>
 
 <tr>
-<td height="40" style="color:#FFFFFF; font-size:30px; font-weight:800; padding-bottom:20px;" colspan="5" align="center">Level 2.5</td>
+<td height="40" style="color:#FFFFFF; font-size:30px; font-weight:800; padding-bottom:20px;" colspan="5" align="center">Level 2.7</td>
 </tr>
 <form name="calenderprect" method="post" >
 

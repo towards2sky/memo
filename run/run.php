@@ -3,10 +3,10 @@ static $i=1;
 echo "<center><b>"."NUMERIC TO ALFABAT";
 for($j=1;$j<=20;$j++)
 	{
-	include(num.php);
+	include('num.php');
 	}
 	echo "<center><b><br><br><br><br>"."ALFABAT TO NUMERIC";
-include(alfa.php);
+include('alfa.php');
 
 
 ?>

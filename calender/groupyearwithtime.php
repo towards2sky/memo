@@ -6,6 +6,7 @@ $qyear = mysql_query($yearsql);
 
 while($obj1=mysql_fetch_object($qyear))
 	{
+if($obj1->yearext <35)
 	$yearobj[$obj1->yearext]=$obj1->tagname;
 	}	
 	

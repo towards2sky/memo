@@ -5,10 +5,10 @@ if (!$link) {
 }
 
 // make foo the current db
-$db_selected = mysql_select_db('remb', $link);
-if (!$db_selected) {
-    die ('Can\'t use remb : ' . mysql_error());
-}
+//$db_selected = mysql_select_db('remb', $link);
+//if (!$db_selected) {
+ //   die ('Can\'t use remb : ' . mysql_error());
+//}
 if(isset($_GET['level'])){
 $level=$_GET['level'];
 }else{

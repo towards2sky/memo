@@ -10,7 +10,7 @@ $calobj = mysql_query($calenderyearsql);
 		}
 	}
 
-$months=array(17,18,19,20,21);
+$months=array(18,19,18,19,20,21,20);
 
 if(isset($_POST['settime'])){
 $settime=trim($_POST['settime']);
@@ -49,6 +49,7 @@ var AnsIdsInarray=AnsIds.split(",");
 		}else{
 		nextLavel=0;
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
+		document.getElementById(AnsIdsInarray[i]).disabled=false;
 		}
 		if(nextLavel){
 				//document.forms['calenderprect'].submit();

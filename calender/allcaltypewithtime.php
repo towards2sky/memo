@@ -1,4 +1,10 @@
 <?php 
+session_start();
+
+if(isset($_SESSION['previous_values']) && count($_SESSION['previous_values']) >100){unset($_SESSION['previous_values']);}
+
+if(isset($_POST['lavel']) && $_POST['lavel']!='A' && $_POST['lavel']!='R'){	unset($_SESSION['previous_values']);	}
+
 $yearTag = array('1'=>'N-1','N-2','N-3','N-4','N-5','N-6','N-7','L-1','L-2','L-3','L-4','L-5','L-6','L-7');
 $months= array('1'=>'JAN','2'=>'FEB','3'=>'MAR','4'=>'APR','5'=>'MAY','6'=>'JUNE','7'=>'JULY','8'=>'AUG','9'=>'SEPT','10'=>'OCT','11'=>'NOV','12'=>'DEC');
 
@@ -115,25 +121,61 @@ $t=5;
 
 $select_seq=NULL;
 $select_ren=NULL;
+
 if(isset($_POST['displaytype']) AND trim($_POST['displaytype'])=='seq'){
 $select_seq='selected="selected"';
 }else{
 $select_ren='selected="selected"';
 }
+
+
+//for loop
+if(isset($_POST['loop'])){
+$loop=$_POST['loop'];
+}else{
+$loop=1;
+}
+
+if(isset($_POST['curloop']) && $_POST['loop']>1 && $_POST['curloop']<$_POST['loop']){
+$curloop=$_POST['curloop']+1;
+}else{
+$curloop=1;
+
+}
+
+if( isset($_POST['curloop']) && ($_POST['curloop']+1)==$_POST['loop']){
+$loop=1;
+$curloop=1;
+}
+
+if($loop>1){$addradiobuttom=4;}else{$addradiobuttom=0;}
+$totalrdiobutton=(5+$addradiobuttom);
+//
+
+
 ?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Memory</title>
 <style type="text/css">
-  div.answer {
-  width: 20px;
-   padding: 2px; margin: 2px; z-index: 100;
-   color: #9D9E99; 
-   font: 10px Verdana,bold,sans-serif; text-align: center;
-   }
+		div.answer {
+		width: 20px;
+		padding: 2px; margin: 2px; z-index: 100;
+		color: #9D9E99; 
+		font: 10px Verdana,bold,sans-serif; text-align: center;
+		}
 </style>
 <script type="text/javascript" language="javascript" >
+
+function htmldocumentredy(){
+display();
+<?php if($curloop<$loop){?>
+delayBeforeStart();
+<?php } ?>
+
+}
+
 function checkanswer(){
 state=0;
 var AnsIds = document.getElementById('asnwerIds').value;
@@ -155,12 +197,19 @@ var AnsIdsInarray=AnsIds.split(",");
 		document.getElementById(AnsIdsInarray[i]).disabled=false;
 		//document.getElementById('d'+AnsIdsInarray[i]).style.display='block';
 		}
-		if(nextLavel){
-				//document.forms['calenderprect'].submit();
+		<?php if($curloop!=$loop){ ?>
+		if(i==(AnsIdsInarray.length-1)){
+		setTimeout("submitform('calenderprect');", 5000);
 		}	
+		<?php } ?>	
 	}
 
 }
+
+function submitform(fname){
+	document.forms[fname].submit();
+}
+
 
 function showAnser(){
 state=0;
@@ -229,6 +278,7 @@ document.forms['calenderprect'].submit();
 
 
 <script type='text/javascript'>
+var radioid=1;
 var ms = 0;
 var state = 0;
 var c=1;
@@ -266,6 +316,9 @@ var cyrid=AnsIdsInarraynew[aryid++];
 document.getElementById(cyrid).style.background='#053650';
 document.getElementById(cyrid).disabled=true;
 
+if(aryid==AnsIdsInarraynew.length){
+setTimeout("checkanswer();", 2000);
+}
 
 c=c+1;
 //ms=1;
@@ -275,17 +328,39 @@ document.stpw.time.value = ms;
    }
 }
 
-window.onload=display
+window.onload=htmldocumentredy;
+
+function delayBeforeStart(){
+
+	if(radioid<=<?php echo $totalrdiobutton;?>){
+	document.getElementById('r'+radioid).checked = true;
+	radioid++;
+	setTimeout("delayBeforeStart();", 900);
+	}else{
+	startstop();
+	}
+}
 
 </script>
 </head>
 <body bgcolor="#053650">
 <CENTER>
 <FORM NAME="stpw" method="post" >
-
+Loop:
+<select name="loop" style="width:50px;" onChange="this.form.submit();" >
+	
+	<?php for($i=1;$i<11;$i++){ 
+	$selected='';
+	if($loop==$i){
+	$selected='selected="selected"';
+	}
+	?>
+	<option value="<?php echo $i;?>" <?php echo $selected; ?> ><?php echo ($i-1);?></option>
+	<?php } ?>
+	</select>
+	
 Time:
 <select name="settime" style="width:50px;" onChange="this.form.submit();" >
-	
 	<?php for($i=1;$i<11;$i++){ 
 	$selected='';
 	if($t==$i){
@@ -296,7 +371,7 @@ Time:
 	<?php } ?>
 	</select>
 <input type='hidden' name='lavel' value='<?php echo $_POST['lavel']; ?>' />
-<INPUT TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="startstop()">
+<INPUT TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="delayBeforeStart()">
 <input type='hidden' name='displaytype' value='<?php echo $_POST['displaytype']; ?>' />
 </FORM>
 </CENTER>
@@ -316,6 +391,9 @@ Time:
 <tr>
 <td height="40" style="font-size:14px;" colspan="5">
 <input type='hidden' name='settime' value='<?php echo $t; ?>' />
+<input type='hidden' name='curloop' value='<?php echo $curloop; ?>' />
+<input type='hidden' name='loop' value='<?php echo $loop; ?>' />
+
 <select name="displaytype" style="width:100px;" onChange="this.form.submit();" >
 	<?php 
 	echo "<option value='ren' $select_ren >Randam</option>";	
@@ -340,12 +418,41 @@ Time:
 <tr>
 <td width="20%" style="color:#FFFFFF; font-size:18px; font-weight:800; padding-bottom:20px;">All Year Tag</td><td width="80%" style="color:#FFFFFF; font-size:18px; font-weight:800;padding-bottom:20px;"  align="center">Start Month of the year</td>
 </tr>
+<?php if($loop>1){ ?>
+<tr>
+<td width="100%" style="color:#FFFFFF; font-size:25px; font-weight:800;padding-bottom:20px;"  align="center">Loop left: <?php echo ($loop-$curloop-1); ?></td>
+</tr>
+<?php } ?>
+
+<tr>
+<td width="80%" style="color:#FFFFFF; font-size:18px; font-weight:800; padding-bottom:10px;padding-left:20px;">
+<?php for($r=1;$r<=$totalrdiobutton;$r++){?> <input type="radio" id="r<?php echo $r; ?>"/> <?php } ?>
+</td>
+<td width="20%" style="color:#FFFFFF; font-size:18px; font-weight:800;padding-bottom:20px;"  align="center"></td>
+</tr>
 
 <?php 
+//echo '<pre>';
+//print_r($_SESSION);
+//echo '</pre>';
 $xt=0;
 $show=$months;
-//echo '<pre>';
-//print_r($yearTag);
+$allreadyincluded=array();
+if(isset($_SESSION['previous_values'])){$allreadyincluded=$_SESSION['previous_values'];}
+echo '<pre>';
+//print_r($_SESSION['previous_values']);
+$j=0;
+foreach($yearTag as $yk=>$yobj){
+	foreach($months as $mk=>$mobj){
+		$q_nas=$answer[$yk][$mk];
+		$allpossiblevalue[$j]['q']=$yobj.'=>'.$mobj;
+		$allpossiblevalue[$j]['a']=$q_nas;
+		$j++;
+	}
+}
+shuffle($allpossiblevalue);
+//print_r($allpossiblevalue);
+//exit;
 //echo '</pre>';
 for($i=0;$i<$label;$i++){ //$show=$months;
 ?>
@@ -355,6 +462,8 @@ for($i=0;$i<$label;$i++){ //$show=$months;
 <tr>
 
 <?php 
+if(isset($_POST['lavel'])){$lvalue=$_POST['lavel'];}else{$lvalue='';}
+$NotforuniqueValue=array('DL','DN','UL','UN');
 if($select_seq){$y=array_rand($yearTag); $show=$months;}
 
 for($k=1;$k<9;$k++){ ++$xt; 
@@ -363,32 +472,42 @@ if(count($show)<1){ $show=$months; }
 
 if(!$select_seq){$y=array_rand($yearTag);}
 
-$m=array_rand($show);
+$key=array_rand($allpossiblevalue);
+
+$value=$allpossiblevalue[$key]['q'];
+$answer=$allpossiblevalue[$key]['a'];
+
+if(!in_array($lvalue,$NotforuniqueValue)){
+	if(in_array($value,$allreadyincluded)){$k--; unset($allpossiblevalue[$key]); continue;}
+}
+
+$allreadyincluded[]=$value;
+$_SESSION['previous_values'][]=$value;
+
 ?>
 <td align="right" width="90px">
-<span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $yearTag[$y].'=>'.$show[$m];?></span>
+<span style="color:#FFFFFF; font-weight:bold;"><?php  echo $value; ?></span>
 </td>
 <td align="center" valign="middle" >
-<div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $answer[$y][$m]; ?></div>
-<input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="2" value="" maxlength="1" onKeyUp="strUpperCase(this);"  />
-<input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $answer[$y][$m]; ?>" />
+<div style="display:none;" class="answer" id="d<?php echo trim($i.$k.$xt); ?>" ><?php echo $answer; ?></div>
+<input id="<?php echo trim($i.$k.$xt); ?>" type="text" size="2" value="" maxlength="1" onKeyUp="strUpperCase(this);"  />
+<input type="hidden" id="a<?php echo trim($i.$k.$xt); ?>" value="<?php echo $answer; ?>" />
 </td>
-<?php 
-$ansIds[]=trim($y.$m.$xt);
-unset($show[$m]);
+<?php
+$ansIds[]=trim($i.$k.$xt);
 } ?>
 </tr>
 </table>
 </td>
 </tr>
-<?php 
-unset($yearTag[$y]);
- } ?>
+<?php  }  ?>
 <tr><td colspan="2" align="center" style="padding-top:20px;">
+<?php  if($curloop==$loop){ ?>
 <input type="button" name="check" value="Check" onClick="javascript: checkanswer();" />
 <input type="button" name="check" value="Show Ans" onClick="javascript: showAnser();" />
 <input type="button" name="Again" value="Once Again" onClick="javascript: submitform();"/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="mixmonthprewithtime.php" >NEXT</a>
+<?php } ?>
 <input type="hidden" id="asnwerIds" value="<?php echo implode(',',$ansIds); ?>" />
 </td></tr>
 </table>

@@ -194,6 +194,7 @@ foreach($MONTHTYPE AS $mt=>$month){
 }
 
 //================
+$totalrdiobutton=5;
 ?>
 <html>
 <head>
@@ -304,6 +305,8 @@ var state = 0;
 var c=1;
 var aryid=0;
 var disabletime=<?php echo $t*1000; ?>;
+var radioid=1;
+
 function startstop() {
 if (state == 0) {
 state = 1;
@@ -347,6 +350,17 @@ c=c+1;
 
 window.onload=display
 
+function delayBeforeStart(){
+
+	if(radioid<=<?php echo $totalrdiobutton;?>){
+	document.getElementById('r'+radioid).checked = true;
+	radioid++;
+	setTimeout("delayBeforeStart();", 900);
+	}else{
+	startstop();
+	}
+}
+
 </script>
 </head>
 <body bgcolor="#053650">
@@ -366,7 +380,7 @@ Time:
 	</select>
 <input type='hidden' name='level' value='<?php echo $_POST['level']; ?>' />
 <input type='hidden' name='displaytype' value='<?php echo $_POST['displaytype']; ?>' />
-<INPUT TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="startstop()">
+<INPUT TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="delayBeforeStart()">
 </FORM>
 </CENTER>
 
@@ -410,8 +424,10 @@ Time:
 </tr>
 </form>
 <tr>
-<td width="20%" style="color:#FFFFFF; font-size:18px; font-weight:800; padding-bottom:20px;"></td>
-<td width="80%" style="color:#FFFFFF; font-size:18px; font-weight:800;padding-bottom:20px;"  align="center"></td>
+<td width="80%" style="color:#FFFFFF; font-size:18px; font-weight:800; padding-bottom:20px;">
+<?php for($r=1;$r<=$totalrdiobutton;$r++){?> <input type="radio" id="r<?php echo $r; ?>"/> <?php } ?>
+</td>
+<td width="20%" style="color:#FFFFFF; font-size:18px; font-weight:800;padding-bottom:20px;"  align="center"></td>
 </tr>
 
 <?php 

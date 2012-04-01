@@ -6,7 +6,7 @@ $qyear = mysql_query($yearsql);
 
 while($obj1=mysql_fetch_object($qyear))
 	{
-if($obj1->yearext <35)
+if($obj1->yearext <101)
 	$yearobj[$obj1->yearext]=$obj1->tagname;
 	}	
 	
@@ -35,8 +35,10 @@ var AnsIdsInarray=AnsIds.split(",");
 //		alert(input.trim()+'=='+answer.trim());
 		if(input.trim()==answer.trim()){ 
 		document.getElementById(AnsIdsInarray[i]).style.background='#009900';
+		document.getElementById(AnsIdsInarray[i]).disabled=true;
 		}else{
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
+		document.getElementById(AnsIdsInarray[i]).disabled=false;
 		}
 		
 	}

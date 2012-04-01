@@ -27,8 +27,10 @@ var AnsIdsInarray=AnsIds.split(",");
 //		alert(input.trim()+'=='+answer.trim());
 		if(input.trim()==answer.trim()){ 
 		document.getElementById(AnsIdsInarray[i]).style.background='#009900';
+		document.getElementById(AnsIdsInarray[i]).disabled=true;
 		}else{
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
+
 		}
 		
 	}

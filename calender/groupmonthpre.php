@@ -1,4 +1,11 @@
 <?php 
+session_start();
+
+if(isset($_SESSION['previous_values']) && count($_SESSION['previous_values']) >150){unset($_SESSION['previous_values']);}
+
+//echo '<pre>';
+//print_r($_SESSION);
+//echo '</pre>';
 // month with images
 $DAYTAG=array('MANGO'=>'MANGO','TEA'=>'TEA','WATCH'=>'WATCH','THRESH'=>'THRESH','FISH'=>'FISH','ASH'=>'ASH','SCHOOL'=>'SCHOOL');
 $MONTHOFDAY['1']=array(1,8,15,22,29);
@@ -33,6 +40,7 @@ foreach($MONTHTYPE AS $mt=>$month){
 		}
 }
 */
+
 $TT['NO']='NO';
 $TT['YES']='YES';
 
@@ -103,6 +111,28 @@ $vrt=7;
 }
 //echo '<pre>';
 //print_r($DAYS);
+if(isset($_POST['loop'])){
+$loop=$_POST['loop'];
+}else{
+$loop=1;
+}
+
+if(isset($_POST['curloop']) && $_POST['loop']>1 && $_POST['curloop']<$_POST['loop']){
+$curloop=$_POST['curloop']+1;
+}else{
+$curloop=1;
+
+}
+
+if( isset($_POST['curloop']) && ($_POST['curloop']+1)==$_POST['loop']){
+$loop=1;
+$curloop=1;
+}
+
+if($loop>1){$addradiobuttom=3;}else{$addradiobuttom=0;}
+$totalrdiobutton=(5+$addradiobuttom);
+//echo $curloop.'=='.$loop;
+
 ?>
 <html>
 <head>
@@ -117,6 +147,15 @@ $vrt=7;
    }
 </style>
 <script type="text/javascript" language="javascript" >
+
+function htmldocumentredy(){
+display();
+<?php if($curloop<$loop){?>
+delayBeforeStart();
+<?php } ?>
+
+}
+
 function checkanswer(){ state=0;
 var AnsIds = document.getElementById('asnwerIds').value;
 
@@ -135,12 +174,22 @@ var AnsIdsInarray=AnsIds.split(",");
 		document.getElementById(AnsIdsInarray[i]).style.background='#FF0000';
 		document.getElementById(AnsIdsInarray[i]).disabled=false;
 		}
-		if(nextLavel){
-				//document.forms['calenderprect'].submit();
+		
+		<?php if($curloop!=$loop){ ?>
+		if(i==(AnsIdsInarray.length-1)){
+		setTimeout("submitform('calenderprect');", 5000);
 		}	
+		<?php } ?>
+
 	}
 
 }
+function submitform(fname){
+	document.forms[fname].submit();
+}
+
+
+
 String.prototype.trim = function() {
 a = this.replace(/^\s+/, '');
 return a.replace(/\s+$/, '');
@@ -203,9 +252,9 @@ var str=obj.value;
 obj.value= str.toUpperCase();
 }
 
-function submitform(){
-document.forms['calenderprect'].submit();
-}
+//function submitform(){
+//document.forms['calenderprect'].submit();
+//}
 </script>
 
 
@@ -216,7 +265,7 @@ For this script
 Visit http://java-scripts.net 
 or http://wsabstract.com
 */
-
+var radioid=1;
 var ms = 0;
 var state = 0;
 var c=1;
@@ -249,7 +298,10 @@ if(ms >(disabletime*c)){
 
 var AnsIdsnew = document.getElementById('asnwerIds').value;
 //alert(AnsIds);
+
 var AnsIdsInarraynew=AnsIdsnew.split(",");
+
+//alert(AnsIdsInarraynew.length);
 
 var cyrid=AnsIdsInarraynew[aryid++];
 var checkid=document.getElementById(cyrid);
@@ -258,6 +310,9 @@ document.getElementById(cyrid).style.background='#053650';
 document.getElementById(cyrid).disabled=true;
 }
 
+if(aryid==AnsIdsInarraynew.length){
+setTimeout("checkanswer();", 2000);
+}
 //var state = 0;
 //startstop();
 //alert(c);
@@ -296,14 +351,38 @@ var AnsIdsInarray=AnsIds.split(",");
    }
 }
 
-window.onload=display
+window.onload=htmldocumentredy;
 
+
+function delayBeforeStart(){
+
+	if(radioid<=<?php echo $totalrdiobutton;?>){
+	document.getElementById('r'+radioid).checked = true;
+	radioid++;
+	setTimeout("delayBeforeStart();", 900);
+	}else{
+	startstop();
+	}
+}
 </script>
 
 </head>
 <body bgcolor="#053650">
 <CENTER>
 <FORM NAME="stpw" method="post" >
+Loop:
+<select name="loop" style="width:50px;" onChange="this.form.submit();" >
+	
+	<?php for($i=1;$i<11;$i++){ 
+	$selected='';
+	if($loop==$i){
+	$selected='selected="selected"';
+	}
+	?>
+	<option value="<?php echo $i;?>" <?php echo $selected; ?> ><?php echo ($i-1);?></option>
+	<?php } ?>
+	</select>
+	
 Tag Typ:
 <select name="tagtye" style="width:50px;" onChange="this.form.submit();" >
 	
@@ -340,7 +419,7 @@ Time:
 	<?php } ?>
 	</select>
 
-<INPUT TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="startstop()">
+<INPUT TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="delayBeforeStart()">
 </FORM>
 </CENTER>
 <table align="center" width="95%" cellspacing="10" style="font-family:'Times New Roman', Times, serif">
@@ -355,13 +434,26 @@ Time:
 <input type='hidden' name='monthtype' value='<?php echo $monthtype; ?>' />
 <input type='hidden' name='settime' value='<?php echo $settime; ?>' />
 <input type='hidden' name='tagtye' value='<?php echo $tagtye; ?>' />
+<input type='hidden' name='curloop' value='<?php echo $curloop; ?>' />
+<input type='hidden' name='loop' value='<?php echo $loop; ?>' />
+
 </td>
 </tr>
 </form>
 <tr>
-<td width="100%" style="color:#FFFFFF; font-size:50px; font-weight:800;padding-bottom:20px;"  align="center"><?php echo $monthtype;  if($monthtype!='MIX'){?> <img src="images/monthtype/<?php echo $monthtype?>.jpg" > <?php } ?></td>
+<td width="100%" style="color:#FFFFFF; font-size:40px; font-weight:800;padding-bottom:20px;"  align="center"><?php echo $monthtype;  if($monthtype!='MIX'){?> <img src="images/monthtype/<?php echo $monthtype?>.jpg" > <?php } ?></td>
 </tr>
-
+<?php if($loop>1){ ?>
+<tr>
+<td width="100%" style="color:#FFFFFF; font-size:25px; font-weight:800;padding-bottom:20px;"  align="center">Loop left: <?php echo ($loop-$curloop-1); ?></td>
+</tr>
+<?php } ?>
+<tr>
+<td width="80%" style="color:#FFFFFF; font-size:18px; font-weight:800; padding-bottom:10px;padding-left:45px;">
+<?php for($r=1;$r<=$totalrdiobutton;$r++){?> <input type="radio" id="r<?php echo $r; ?>"/> <?php } ?>
+</td>
+<td width="20%" style="color:#FFFFFF; font-size:18px; font-weight:800;padding-bottom:20px;"  align="center"></td>
+</tr>
 <?php 
 if($monthtype=='MIX'){
 $vrt=10;
@@ -377,7 +469,9 @@ for($i=0;$i<$vrt;$i++){
 <table align="center" width="100%">
 <tr>
 <?php 
-for($y=0;$y<$hrt;$y++){ ++$xt; ?>
+for($y=0;$y<$hrt;$y++){ ++$xt; 
+
+?>
 <td  align="right" width="90px">
 <?php 
 $m=array_rand($show);
@@ -408,9 +502,13 @@ unset($show[$m]);
 <?php 
  } 
  }else{
-
+//echo '<pre>';
+//print_r($_SESSION);
+//echo '</pre>';
 $xt=0;
 $show=$DAYS;
+$allreadyincluded=array();
+if(isset($_SESSION['previous_values'])){$allreadyincluded=$_SESSION['previous_values'];}
 for($i=0;$i<$vrt;$i++){
 //$show=$DAYS;
  ?>
@@ -419,10 +517,17 @@ for($i=0;$i<$vrt;$i++){
 <table align="center" width="100%">
 <tr>
 <?php 
-for($y=0;$y<$hrt;$y++){ ++$xt; ?>
+for($y=0;$y<$hrt;$y++){ ++$xt; 
+
+$m=array_rand($show);
+if(in_array($m,$allreadyincluded)){$y--; continue;}
+$allreadyincluded[]=$m;
+
+$_SESSION['previous_values'][]=$m;
+
+?>
 <td  align="right" width="90px">
 <?php 
-$m=array_rand($show);
 //echo $months[$m];?><span style="color:#FFFFFF; font-weight:bold;"><?php echo $m;?></span>
 <span style="color:#999999"><?php //echo $k,$m;?></span>
 </td>
@@ -444,13 +549,17 @@ if(count($show)==0){$show=$DAYS;  }
 <?php
 }
 }
+
 ?>
 <tr><td colspan="2" align="center" style="padding-top:20px;">
+<?php  if($curloop==$loop){ ?>
 <input type="button" name="check" value="Check" onClick="javascript: checkanswer();" />
 <input type="button" name="check" value="Show Ans" onClick="javascript: showAnser();" />
-<input type="button" name="Again" value="Once Again" onClick="javascript: submitform();"/>
+<input type="button" name="Again" value="Once Again" onClick="javascript: submitform('calenderprect');"/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF; text-decoration:none" href="groupmonthpre.php?r=1" >RANDAM</a>
+<?php } ?>
 <input type="hidden" id="asnwerIds" value="<?php echo implode(',',$ansIds); ?>" />
 </td></tr>
+
 </table>
 </html>

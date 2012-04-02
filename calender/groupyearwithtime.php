@@ -1,12 +1,24 @@
 <?php 
 include('connection.php');
 
+$selected31='';
+$selected100='';
+if(isset($_POST['upto'])){
+$upto=trim($_POST['upto']);
+}else{
+$upto=100;
+}
+$sltstr='selected'.$upto;
+$$sltstr='selected="selected"';
+
+
+
 $yearsql="SELECT `tagyearid`,`yearext`,tagname FROM yeartype as yt JOIN newtagyear as nty ON yt.tagyearid=nty.tagid";
 $qyear = mysql_query($yearsql);
 
 while($obj1=mysql_fetch_object($qyear))
 	{
-if($obj1->yearext <101)
+if($obj1->yearext <= $upto)
 	$yearobj[$obj1->yearext]=$obj1->tagname;
 	}	
 	
@@ -18,6 +30,7 @@ $t=trim($_POST['settime']);
 }else{
 $t=4;
 }
+
 ?>
 <html>
 <head>
@@ -170,6 +183,12 @@ window.onload=display
 <body bgcolor="#053650">
 <CENTER>
 <FORM NAME="stpw" method="post" >
+Upto:
+<select name="upto" style="width:50px;" onChange="this.form.submit();" >
+	<option value="31" <?php echo $selected31; ?> >31</option>
+	<option value="100" <?php echo $selected100; ?> >100</option>
+	</select>
+	
 Time:
 <select name="settime" style="width:50px;" onChange="this.form.submit();" >
 	<?php for($i=1;$i<11;$i++){ 

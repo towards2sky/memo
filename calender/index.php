@@ -11,24 +11,24 @@
 <tr><td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#FFFFFF;">Practice With Time</td></tr>
 <tr><td><hr /></td></tr>
 </tr><tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="groupmonthpre.php" >GROUP MONTHS PRECTIC (A,B,C...F)</a>G-1</td>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="groupmonthpre.php" >PRECTIC OF (A,B,C...F) WITH TIMER</a></td>
+</tr>
+<tr>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="groupyearwithtime.php" >PRECTIC OF (31/100) WITH TIMER</a></td>
+</tr>
+<tr>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="allcaltypewithtime.php" >PRECTIC OF (N-1,N-2....L-1,L-2) WITH TIMER</a></td>
 </tr><tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="allcaltypewithtime.php" >Mix Type Year Prect With Time (N-1,N-2....L-1,L-2)</a>G-2</td>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="cenprewithtime2.php" >PRECTIC OF (18,19,20,21) WITH TIMER</a></td>
 </tr><tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="cenprewithtime.php" >18,19,20...Pre of Group Year With time</a>G-3</td>
-</tr><tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="cenprewithtime2.php" >18,19,20...Pre of Group Mix</a>G-3</td>
-</tr><tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="yearspre.php" >Mix Years</a>G-3</td>
-</tr><tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="groupyearwithtime.php" >Prectic of Group Year With Time</a>G-3</td>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="cenprewithtime.php" >PRECTIC.OF..(18,19,20,21)..WITH...IMAGES</a></td>
 </tr>
 
 <tr><td><hr /></td></tr>
 
 <tr>
 <td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="level1.php" >
-Game On Level</a></td>
+Lets Play Game by Level</a></td>
 </tr>
 <tr>
 <td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="ready.php" >Ready to Ask</a></td>
@@ -45,6 +45,8 @@ Game On Level</a></td>
 
 <tr>
 <td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="caltype1.php" >Calender Months</a></td>
+</tr><tr>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="yearspre.php" >Mix Years</a>G-3</td>
 </tr>
 <tr>
 <td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="caltype2.php" >Calender Normal Year</a></td>

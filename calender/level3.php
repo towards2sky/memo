@@ -149,7 +149,7 @@ $level=3;
 if(isset($_POST['settime'])){
 $t=trim($_POST['settime']);
 }else{
-$t=10;
+$t=9;
 }
 
 $select_seq=NULL;

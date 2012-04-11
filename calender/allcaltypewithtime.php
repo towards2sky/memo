@@ -153,6 +153,15 @@ $totalrdiobutton=(5+$addradiobuttom);
 //
 
 
+$TT['NO']='NO';
+$TT['YES']='YES';
+
+if(isset($_POST['withimages'])){
+$withimages=$_POST['withimages'];
+}else{
+$withimages='NO';
+}
+
 ?>
 <html>
 <head>
@@ -293,14 +302,14 @@ then.setTime(then.getTime() - ms);
 state = 0;
 now = new Date();
 ms = now.getTime() - then.getTime();
-document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
    }
 }
 
 function swreset() {
 state = 0;
 ms = 0;
-document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
 }
 
 function display() {
@@ -324,7 +333,7 @@ c=c+1;
 //ms=1;
 
 }
-document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
    }
 }
 
@@ -340,12 +349,25 @@ function delayBeforeStart(){
 	startstop();
 	}
 }
-
 </script>
 </head>
+
 <body bgcolor="#053650">
 <CENTER>
 <FORM NAME="stpw" method="post" >
+With Img:
+<select name="withimages" style="width:50px;" onChange="this.form.submit();" >
+	
+	<?php foreach($TT as $k=>$v){ 
+	$selectedtagtye='';
+	if($withimages==$k){
+	$selectedtagtye='selected="selected"';
+	}
+	?>
+	<option value="<?php echo $k;?>" <?php echo $selectedtagtye; ?> ><?php echo $v;?></option>
+	<?php } ?>
+	</select>
+	
 Loop:
 <select name="loop" style="width:50px;" onChange="this.form.submit();" >
 	
@@ -393,6 +415,7 @@ Time:
 <input type='hidden' name='settime' value='<?php echo $t; ?>' />
 <input type='hidden' name='curloop' value='<?php echo $curloop; ?>' />
 <input type='hidden' name='loop' value='<?php echo $loop; ?>' />
+<input type='hidden' name='withimages' value='<?php echo $withimages; ?>' />
 
 <select name="displaytype" style="width:100px;" onChange="this.form.submit();" >
 	<?php 
@@ -439,7 +462,7 @@ $xt=0;
 $show=$months;
 $allreadyincluded=array();
 if(isset($_SESSION['previous_values'])){$allreadyincluded=$_SESSION['previous_values'];}
-echo '<pre>';
+//echo '<pre>';
 //print_r($_SESSION['previous_values']);
 $j=0;
 foreach($yearTag as $yk=>$yobj){
@@ -454,53 +477,135 @@ shuffle($allpossiblevalue);
 //print_r($allpossiblevalue);
 //exit;
 //echo '</pre>';
-for($i=0;$i<$label;$i++){ //$show=$months;
-?>
-<tr>
-<td width="100%" align="left" colspan="2" style="padding-top:10px; ">
-<table align="left" width="100%">
-<tr>
 
-<?php 
-if(isset($_POST['lavel'])){$lvalue=$_POST['lavel'];}else{$lvalue='';}
-$NotforuniqueValue=array('DL','DN','UL','UN');
-if($select_seq){$y=array_rand($yearTag); $show=$months;}
+if($withimages=='YES'){
+?> 
+			<?php 
+			for($i=0;$i<$label;$i++){ //$show=$months;
+			?>
+			<tr>
+			<td width="100%" align="left" colspan="2" style="padding-top:10px; ">
+			<table align="left" width="100%">
+			<tr>
 
-for($k=1;$k<9;$k++){ ++$xt; 
+			<?php 
+			if(isset($_POST['lavel'])){$lvalue=$_POST['lavel'];}else{$lvalue='';}
+			$NotforuniqueValue=array('DL','DN','UL','UN');
+			if($select_seq){$y=array_rand($yearTag); $show=$months;}
 
-if(count($show)<1){ $show=$months; }
+			for($k=1;$k<5;$k++){ ++$xt; 
 
-if(!$select_seq){$y=array_rand($yearTag);}
+			if(count($show)<1){ $show=$months; }
 
-$key=array_rand($allpossiblevalue);
+			if(!$select_seq){$y=array_rand($yearTag);}
 
-$value=$allpossiblevalue[$key]['q'];
-$answer=$allpossiblevalue[$key]['a'];
+			$key=array_rand($allpossiblevalue);
 
-if(!in_array($lvalue,$NotforuniqueValue)){
-	if(in_array($value,$allreadyincluded)){$k--; unset($allpossiblevalue[$key]); continue;}
-}
+			$value=$allpossiblevalue[$key]['q'];
+			$answer=$allpossiblevalue[$key]['a'];
+				
+				
+				
+				
+			if(!in_array($lvalue,$NotforuniqueValue)){
+				if(in_array($value,$allreadyincluded)){$k--; unset($allpossiblevalue[$key]); continue;}
+			}
 
-$allreadyincluded[]=$value;
-$_SESSION['previous_values'][]=$value;
+			$allreadyincluded[]=$value;
+			$_SESSION['previous_values'][]=$value;
 
-?>
-<td align="right" width="90px">
-<span style="color:#FFFFFF; font-weight:bold;"><?php  echo $value; ?></span>
-</td>
-<td align="center" valign="middle" >
-<div style="display:none;" class="answer" id="d<?php echo trim($i.$k.$xt); ?>" ><?php echo $answer; ?></div>
-<input id="<?php echo trim($i.$k.$xt); ?>" type="text" size="2" value="" maxlength="1" onKeyUp="strUpperCase(this);"  />
-<input type="hidden" id="a<?php echo trim($i.$k.$xt); ?>" value="<?php echo $answer; ?>" />
-</td>
-<?php
-$ansIds[]=trim($i.$k.$xt);
-} ?>
-</tr>
-</table>
-</td>
-</tr>
-<?php  }  ?>
+			$imgobj=explode('=>',$value);
+			
+			if(file_exists('images/G3/'.$imgobj[0].'.jpeg'))
+			{$mdayimg1='images/G3/'.$imgobj[0].'.jpeg';}
+			else if (file_exists('images/G3/'.$imgobj[0].'.jpg')){$mdayimg1='images/G3/'.$imgobj[0].'.jpg';}
+			else {$mdayimg1='images/NO.jpeg';}
+
+			$value_part1="<img width='50' height='50' src='$mdayimg1' >$imgobj[0]=>";
+			
+			
+			
+			if(file_exists('images/G3/'.$imgobj[1].'.jpeg'))
+			{$mdayimg2='images/G3/'.$imgobj[1].'.jpeg';}
+			else if (file_exists('images/G3/'.$imgobj[1].'.jpg')){$mdayimg2='images/G3/'.$imgobj[1].'.jpg';}
+			else {$mdayimg2='images/NO.jpeg';}
+
+			$value_part2="$imgobj[1]<img width='50' height='50' src='$mdayimg2' >";
+			
+			$value=$value_part1.$value_part2;
+			?>
+			<td align="right" width="250px">
+			<span style="color:#FFFFFF; font-weight:bold;"><?php  echo $value; ?></span>
+			</td>
+			<td align="center" valign="middle" >
+			<div style="display:none;" class="answer" id="d<?php echo trim($i.$k.$xt); ?>" ><?php echo $answer; ?></div>
+			<input id="<?php echo trim($i.$k.$xt); ?>" type="text" size="2" value="" maxlength="1" onKeyUp="strUpperCase(this);"  />
+			<input type="hidden" id="a<?php echo trim($i.$k.$xt); ?>" value="<?php echo $answer; ?>" />
+			</td>
+			<?php
+			$ansIds[]=trim($i.$k.$xt);
+			} ?>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			<?php  }  ?>
+			
+			
+<?php } else{ ?>
+
+			<?php 
+				for($i=0;$i<$label;$i++){ //$show=$months;
+				?>
+				<tr>
+				<td width="100%" align="left" colspan="2" style="padding-top:10px; ">
+				<table align="left" width="100%">
+				<tr>
+
+				<?php 
+				if(isset($_POST['lavel'])){$lvalue=$_POST['lavel'];}else{$lvalue='';}
+				$NotforuniqueValue=array('DL','DN','UL','UN');
+				if($select_seq){$y=array_rand($yearTag); $show=$months;}
+
+				for($k=1;$k<9;$k++){ ++$xt; 
+
+				if(count($show)<1){ $show=$months; }
+
+				if(!$select_seq){$y=array_rand($yearTag);}
+
+				$key=array_rand($allpossiblevalue);
+
+				$value=$allpossiblevalue[$key]['q'];
+				$answer=$allpossiblevalue[$key]['a'];
+
+				if(!in_array($lvalue,$NotforuniqueValue)){
+					if(in_array($value,$allreadyincluded)){$k--; unset($allpossiblevalue[$key]); continue;}
+				}
+
+				$allreadyincluded[]=$value;
+				$_SESSION['previous_values'][]=$value;
+
+				?>
+				<td align="right" width="90px">
+				<span style="color:#FFFFFF; font-weight:bold;"><?php  echo $value; ?></span>
+				</td>
+				<td align="center" valign="middle" >
+				<div style="display:none;" class="answer" id="d<?php echo trim($i.$k.$xt); ?>" ><?php echo $answer; ?></div>
+				<input id="<?php echo trim($i.$k.$xt); ?>" type="text" size="2" value="" maxlength="1" onKeyUp="strUpperCase(this);"  />
+				<input type="hidden" id="a<?php echo trim($i.$k.$xt); ?>" value="<?php echo $answer; ?>" />
+				</td>
+				<?php
+				$ansIds[]=trim($i.$k.$xt);
+				} ?>
+				</tr>
+				</table>
+				</td>
+				</tr>
+				<?php  }  ?>
+
+<?php } ?>
+
+
 <tr><td colspan="2" align="center" style="padding-top:20px;">
 <?php  if($curloop==$loop){ ?>
 <input type="button" name="check" value="Check" onClick="javascript: checkanswer();" />

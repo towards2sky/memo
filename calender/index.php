@@ -21,9 +21,13 @@
 </tr><tr>
 <td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="cenprewithtime2.php" >PRECTIC OF (18,19,20,21) WITH TIMER</a></td>
 </tr><tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="cenprewithtime.php" >PRECTIC.OF..(18,19,20,21)..WITH...IMAGES</a></td>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="cenprewithtime.php" >PRECTIC OF (18,19,20,21) WITH IMAGES</a></td>
 </tr>
 
+<tr><td><hr /></td></tr>
+<tr>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="../remb/smallnum25.php" >50 DIGIT IN 5 MIN</a></td>
+</tr>
 <tr><td><hr /></td></tr>
 
 <tr>

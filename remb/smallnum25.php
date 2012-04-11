@@ -123,7 +123,7 @@ $t=5+(5*($level-1));
 				function start() {
 					
 					$('#countdown_dashboard').startCountDown();
-					$('#countdown_dashboard').hide();
+					//$('#countdown_dashboard').hide();
 				}
 
 				// reset and start
@@ -157,7 +157,8 @@ $t=5+(5*($level-1));
 		</div>
 
 	</div>
-<script type="text/javascript">
+	
+<!--	<script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 
@@ -168,6 +169,7 @@ var pageTracker = _gat._getTracker("UA-289748-9");
 pageTracker._trackPageview();
 } catch(err) {}</script>
 
+-->
 
 <form name="form1" action="run.php">
 <table align="center" width="100%">
@@ -207,7 +209,7 @@ $l=$j;
 <a href="smallnum25.php"><h2><font color="#FFFFFF">Again</h2></a>
 
 <a href="smallnum25.php?level=<?php echo (++$level);?>"><h2><font color="#FFFFFF">Next</h2></a>
-<font size="+4">rajesh</font></div>
+<font size="+1"><a style="color:#FFFFFF; text-decoration:none" href="../calender/index.php" >BACK TO HOME</a></font></div>
 </center>
 </form>
 </body></html>

@@ -279,14 +279,14 @@ then.setTime(then.getTime() - ms);
 state = 0;
 now = new Date();
 ms = now.getTime() - then.getTime();
-document.stpw.time.value = ms;
+//document.stpw.time.value = ms;
    }
 }
 
 function swreset() {
 state = 0;
 ms = 0;
-//document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
 c=1;
 }
 
@@ -308,7 +308,7 @@ document.getElementById(cyrid).disabled=true;
 
 c=c+1;
 }
-//document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
    }
 }
 

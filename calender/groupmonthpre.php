@@ -280,14 +280,14 @@ then.setTime(then.getTime() - ms);
 state = 0;
 now = new Date();
 ms = now.getTime() - then.getTime();
-//document.stpw.time.value = ms;
+//////document.stpw.time.value = ms;
    }
 }
 
 function swreset() {
 state = 0;
 ms = 0;
-document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
 }
 
 function display() {
@@ -347,7 +347,7 @@ var AnsIdsInarray=AnsIds.split(",");
 
 
 }
-//document.stpw.time.value = ms;
+//////document.stpw.time.value = ms;
    }
 }
 
@@ -501,8 +501,11 @@ unset($show[$m]);
 </tr>
 <?php 
  } 
- }else{
-//echo '<pre>';
+ }
+ 
+ else if($tagtye=='NO' && $monthtype=='MIX'){ //ECHO 'HELLO';
+ 
+ //echo '<pre>';
 //print_r($_SESSION);
 //echo '</pre>';
 $xt=0;
@@ -524,6 +527,54 @@ if(in_array($m,$allreadyincluded)){$y--; continue;}
 $allreadyincluded[]=$m;
 
 $_SESSION['previous_values'][]=$m;
+
+?>
+<td  align="right" width="90px">
+<?php 
+//echo $months[$m];?><span style="color:#FFFFFF; font-weight:bold;"><?php echo $m;?></span>
+<span style="color:#999999"><?php //echo $k,$m;?></span>
+</td>
+<td align="center" valign="middle" ><div style="display:none;" class="answer" id="d<?php echo trim($m.$xt); ?>" ><?php echo $DAYS[$m]; ?></div>
+<input id="<?php echo trim($m.$xt); ?>" type="text" size="7" value="<?php //echo $dates[$m]; ?>" maxlength="10" onKeyUp="strUpperCase(this);"  />
+<input type="hidden" id="a<?php echo trim($m.$xt); ?>" value="<?php echo $DAYS[$m]; ?>" />
+</td>
+<?php 
+$ansIds[]=trim($m.$xt);
+if(isset($show[$m]))
+unset($show[$m]);
+//echo count($show);	
+if(count($show)==0){$show=$DAYS;  }
+} ?>
+</tr>
+</table>
+</td>
+</tr>
+<?php
+}
+ 
+ }else{
+//echo '<pre>';
+//print_r($_SESSION);
+//echo '</pre>';
+$xt=0;
+$show=$DAYS;
+//$allreadyincluded=array();
+//if(isset($_SESSION['previous_values'])){$allreadyincluded=$_SESSION['previous_values'];}
+for($i=0;$i<$vrt;$i++){
+//$show=$DAYS;
+ ?>
+<tr>
+<td width="100%" align="left" colspan="2" style="padding-top:10px; ">
+<table align="center" width="100%">
+<tr>
+<?php 
+for($y=0;$y<$hrt;$y++){ ++$xt; 
+
+$m=array_rand($show);
+//if(in_array($m,$allreadyincluded)){$y--; continue;}
+//$allreadyincluded[]=$m;
+
+//$_SESSION['previous_values'][]=$m;
 
 ?>
 <td  align="right" width="90px">

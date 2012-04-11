@@ -116,14 +116,14 @@ then.setTime(then.getTime() - ms);
 state = 0;
 now = new Date();
 ms = now.getTime() - then.getTime();
-document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
    }
 }
 
 function swreset() {
 state = 0;
 ms = 0;
-document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
 }
 
 function display() {
@@ -172,7 +172,7 @@ var AnsIdsInarray=AnsIds.split(",");
 
 
 }
-document.stpw.time.value = ms;
+////document.stpw.time.value = ms;
    }
 }
 
@@ -235,6 +235,9 @@ Time:
 
 <?php 
 if($tagtye=='YES'){
+
+$yearTagImg = array('0'=>'N-1','N-2','N-3','N-4','N-5','N-6','N-7','L-1','L-2','L-3','L-4','L-5','L-6','L-7');
+
 $xt=0;
 for($i=0;$i<14;$i++){
 $show=$months;
@@ -245,7 +248,6 @@ $show=$months;
 <tr>
 <td style="color:#FFFFFF; font-size:20px" align="left" width="60px"><?php 
 $y=array_rand($yearTag);
-
 if(file_exists('images/G3/'.$yearTag[$y].'.jpeg'))
 {$mdayimg='images/G3/'.$yearTag[$y].'.jpeg';}
 else if (file_exists('images/G3/'.$yearTag[$y].'.jpg')){$mdayimg='images/G3/'.$yearTag[$y].'.jpg';}

@@ -4,6 +4,7 @@ include('connection.php');
 for($m=1;$m<12;$m++){
 $month[]=$m;
 }
+$months= array('1'=>'JAN','2'=>'FEB','3'=>'MAR','4'=>'APR','5'=>'MAY','6'=>'JUNE','7'=>'JULY','8'=>'AUG','9'=>'SEPT','10'=>'OCT','11'=>'NOV','12'=>'DEC');
 
 for($d=1;$d<31;$d++){
 $day[]=$d;
@@ -15,21 +16,26 @@ $year[]=$y;
 
 for($i=1;$i<50;$i++){
 
-$mk=array_rand($month);
+$mk=array_rand($months);
 $dk=array_rand($day);
 $yk=array_rand($year);
 
-$m=$month[$mk];
+$m=$months[$mk];
 $d=$day[$dk];
 $y=$year[$yk];
 
-		if(checkdate($m, $d, $y)){
-		
+/*
+$m='JUNE';
+$mk=6;
+$d=9;
+$y=1959;
+*/
+		if(checkdate($mk, $d, $y)){
 		$sql=mysql_query("SELECT ty.yearTag FROM yearvalue AS yv JOIN tagyear AS ty ON ty.id=yv.tagyearId WHERE yv.year='$y'");
 		$obj=mysql_fetch_object($sql);
-		$d=$d.'-'.$m.'-'.$obj->yearTag;
-		//$d=$d.'-'.$m.'-'.$y;
-		@$DatesWithAns[$d]=date("l", mktime(0, 0, 0,$m, $d, $y));
+		//$d=$d.'-'.$m.'-'.$obj->yearTag;
+		$d=$d.'-'.$m.'-'.$y;
+		@$DatesWithAns[$d]=date("l", mktime(0, 0, 0,$mk, $d, $y));
 		}
 }
 
@@ -96,7 +102,7 @@ var zi=0;
 function startCount1()
 {  
    document.getElementById('Text1').innerHTML=b
-   if(b>20){ stopCount1();
+   if(b>10){ stopCount1();
    	document.getElementById('tableid').style.display="none";
    	document.getElementById('timeout').style.display="block";
    	
@@ -278,7 +284,7 @@ $('#showans').click(function() {
  
  $('#reload').click(function() {
 
-	var url = "http://localhost/calender/datewithtime.php";    
+	var url = "http://localhost/memo/calender/datewithtime.php";    
 $(location).attr('href',url);
 
 

@@ -27,6 +27,10 @@
 <tr><td><hr /></td></tr>
 <tr>
 <td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="../remb/smallnum25.php" >50 DIGIT IN 5 MIN</a></td>
+
+</tr>
+<tr>
+<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="datewithtime.php" >PRECTIC Single date</a></td>
 </tr>
 <tr><td><hr /></td></tr>
 
@@ -43,8 +47,7 @@ Lets Play Game by Level</a></td>
 <tr>
 <td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="datewithtime2.php" >Full Date</a></td>
 </tr>
-<tr>
-<td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;"><a style="color:#FFFFFF; text-decoration:none" href="datewithtime.php" >Single date</a></td>
+
 <tr><td><hr /></td></tr>
 
 <tr>

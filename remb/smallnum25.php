@@ -22,6 +22,8 @@ $i=0;
 $saperater='&nbsp;&nbsp;';
 
 $t=5+(5*($level-1));
+$breakpoint=24;
+$spacepoint=4;
 ?>
 
 	<link rel="Stylesheet" type="text/css" href="inc/examples.css">
@@ -123,7 +125,7 @@ $t=5+(5*($level-1));
 				function start() {
 					
 					$('#countdown_dashboard').startCountDown();
-					//$('#countdown_dashboard').hide();
+					$('#countdown_dashboard').hide();
 				}
 
 				// reset and start
@@ -184,19 +186,28 @@ $l=0;
 ?>
 
 <tr>
-<td style="color:#FFFFFF; font-size:20px;" align="center">
+<td style="color:#FFFFFF; font-size:20px;" align="center" >
 <?php 
+$y=1;
 $x=0;
 for($j=1;$j<=$t;$j++){
 
- if($x==25){
+ if($x==$breakpoint){
 		$x=0;
 		echo '<br /><br />';
 	
   }
+if($y==$spacepoint){
+$extra_saperater=$saperater.$saperater;
+$y=0;
+}else{
+$extra_saperater=NULL;
+}
 $x++;
+$y++;
 $rs=$i++;
-echo $r[$rs].$saperater; 
+echo $r[$rs].$saperater.$extra_saperater; 
+
 //unset($r[$rs]);
 }
 $l=$j;

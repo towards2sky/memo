@@ -1,60 +1,232 @@
 <?php
 include('connection.php');
+$calenderyearsql="SELECT * FROM newtagyear";
+$calobj = mysql_query($calenderyearsql);
 
-for($m=1;$m<12;$m++){
-$month[]=$m;
+$AllowYear=array(18,19,20,21);
+
+	while($obj=mysql_fetch_object($calobj)){
+	//$yearTagOBJ[]=trim($obj->tagid);
+	$sql=mysql_query("SELECT * FROM `calenderyear` WHERE `newtagyearid` LIKE '".trim($obj->tagid)."'");
+		while($obj1=mysql_fetch_object($sql)){
+		if(in_array(trim($obj1->century),$AllowYear)){
+			$cenobj[trim($obj->tagid)][trim($obj1->century)]=trim($obj1->celtype);
+		}
+		}
+	}
+$yearsql="SELECT `tagyearid`,`yearext`,tagname FROM yeartype as yt JOIN newtagyear as nty ON yt.tagyearid=nty.tagid";
+$qyear = mysql_query($yearsql);
+
+while($obj1=mysql_fetch_object($qyear))
+	{
+	$yearobj[$obj1->yearext]=$obj1->tagyearid;
+	}	
+	
+for($j=0;$j<400;$j++){
+$k=array_rand($yearobj);
+$v=array_rand($cenobj[trim($yearobj[$k])]);
+$DATEOBJ[$v.$k]=$cenobj[trim($yearobj[$k])][$v];
 }
+
+$yearTag = array('1'=>'NET','NENO','RAJESH','NERO','NAIL','NOTCH','NECK','LATHI','LION','LAMB','LAWYAR','LAALU','LEECHE','LOCK');
 $months= array('1'=>'JAN','2'=>'FEB','3'=>'MAR','4'=>'APR','5'=>'MAY','6'=>'JUNE','7'=>'JULY','8'=>'AUG','9'=>'SEPT','10'=>'OCT','11'=>'NOV','12'=>'DEC');
 
-for($d=1;$d<31;$d++){
-$day[]=$d;
-}
+$answer[1]= array('1'=>'B','2'=>'E','3'=>'E','4'=>'A','5'=>'C','6'=>'F','7'=>'A','8'=>'D','9'=>'G','10'=>'B','11'=>'E','12'=>'G');
 
-for($y=1900;$y<2030;$y++){
-$year[]=$y;
-}
+$answer[2]= array('1'=>'C','2'=>'F','3'=>'F','4'=>'B','5'=>'D','6'=>'G','7'=>'B','8'=>'E','9'=>'A','10'=>'C','11'=>'F','12'=>'A');
 
-for($i=1;$i<50;$i++){
+$answer[3]= array('1'=>'D','2'=>'G','3'=>'G','4'=>'C','5'=>'E','6'=>'A','7'=>'C','8'=>'F','9'=>'B','10'=>'D','11'=>'G','12'=>'B');
 
-$mk=array_rand($months);
-$dk=array_rand($day);
-$yk=array_rand($year);
+$answer[4]= array('1'=>'G','2'=>'C','3'=>'C','4'=>'F','5'=>'A','6'=>'D','7'=>'F','8'=>'B','9'=>'E','10'=>'G','11'=>'C','12'=>'E');
 
-$m=$months[$mk];
-$d=$day[$dk];
-$y=$year[$yk];
+$answer[5]= array('1'=>'A','2'=>'D','3'=>'D','4'=>'G','5'=>'B','6'=>'E','7'=>'G','8'=>'C','9'=>'F','10'=>'A','11'=>'D','12'=>'F');
 
-/*
-$m='JUNE';
-$mk=6;
-$d=9;
-$y=1959;
-*/
-		if(checkdate($mk, $d, $y)){
-		$sql=mysql_query("SELECT ty.yearTag FROM yearvalue AS yv JOIN tagyear AS ty ON ty.id=yv.tagyearId WHERE yv.year='$y'");
-		$obj=mysql_fetch_object($sql);
-		//$d=$d.'-'.$m.'-'.$obj->yearTag;
-		$d=$d.'-'.$m.'-'.$y;
-		@$DatesWithAns[$d]=date("l", mktime(0, 0, 0,$mk, $d, $y));
+$answer[6]= array('1'=>'E','2'=>'A','3'=>'A','4'=>'D','5'=>'F','6'=>'B','7'=>'D','8'=>'G','9'=>'C','10'=>'E','11'=>'A','12'=>'C');
+
+$answer[7]= array('1'=>'F','2'=>'B','3'=>'B','4'=>'E','5'=>'G','6'=>'C','7'=>'E','8'=>'A','9'=>'D','10'=>'F','11'=>'B','12'=>'D');
+//=============================================================
+$answer[8]= array('1'=>'B','2'=>'E','3'=>'F','4'=>'B','5'=>'D','6'=>'G','7'=>'B','8'=>'E','9'=>'A','10'=>'C','11'=>'F','12'=>'A');
+
+$answer[9]= array('1'=>'G','2'=>'C','3'=>'D','4'=>'G','5'=>'B','6'=>'E','7'=>'G','8'=>'C','9'=>'F','10'=>'A','11'=>'D','12'=>'F');
+
+$answer[10]= array('1'=>'E','2'=>'A','3'=>'B','4'=>'E','5'=>'G','6'=>'C','7'=>'E','8'=>'A','9'=>'D','10'=>'F','11'=>'B','12'=>'D');
+
+$answer[11]= array('1'=>'C','2'=>'F','3'=>'G','4'=>'C','5'=>'E','6'=>'A','7'=>'C','8'=>'F','9'=>'B','10'=>'D','11'=>'G','12'=>'B');
+
+$answer[12]= array('1'=>'A','2'=>'D','3'=>'E','4'=>'A','5'=>'C','6'=>'F','7'=>'A','8'=>'D','9'=>'G','10'=>'B','11'=>'E','12'=>'G');
+
+$answer[13]= array('1'=>'F','2'=>'B','3'=>'C','4'=>'F','5'=>'A','6'=>'D','7'=>'F','8'=>'B','9'=>'E','10'=>'G','11'=>'C','12'=>'E');
+
+$answer[14]= array('1'=>'D','2'=>'G','3'=>'A','4'=>'D','5'=>'F','6'=>'B','7'=>'D','8'=>'G','9'=>'C','10'=>'E','11'=>'A','12'=>'C');
+
+
+$selectR3='';
+$selectR6='';
+$selectR10='';
+$selectN='';
+$selectL='';
+$selectD='';
+$selectA='';
+if(isset($_POST['level']) and $_POST['level']!=''){ 
+	if(trim($_POST['level'])=='N'){
+	$selectN='selected="selected"';
+	$level=7;
+	$l='N';
+	for($i=8;$i<=14;$i++){
+	unset($yearTag[$i]);
+		}	
+	
+	}else if($_POST['level']=='L'){
+	$selectL='selected="selected"';
+	$level=7;
+	$l='L';
+	for($i=1;$i<=7;$i++){ 
+	unset($yearTag[$i]);
+		}	
+	
+	}else if($_POST['level']=='A'){
+	$selectA='selected="selected"';
+	$l='A';
+	$level=14;
+	}
+	else if($_POST['level']=='DN'){
+	$selectDN='selected="selected"';
+	$level=7;
+	$l='L';
+	for($i=8;$i<=14;$i++){
+	unset($yearTag[$i]);
 		}
+	$months= array('3'=>'MAR','7'=>'JULY','10'=>'OCT','11'=>'NOV','12'=>'DEC');
+		}	
+		else if($_POST['level']=='DL'){
+	$selectDL='selected="selected"';
+	$level=7;
+	$l='L';
+	for($i=1;$i<=7;$i++){ 
+	unset($yearTag[$i]);
+		}
+	$months= array('4'=>'APR','7'=>'JULY','8'=>'AUG','11'=>'NOV','12'=>'DEC');
+		}else if($_POST['level']=='UN'){
+	$selectUN='selected="selected"';
+	$level=7;
+	$l='L';
+	for($i=8;$i<=14;$i++){
+	unset($yearTag[$i]);
+		}
+	$x=array('3'=>'MAR','7'=>'JULY','10'=>'OCT','11'=>'NOV','12'=>'DEC');
+	foreach($x as $k=>$v){
+	unset($months[$k]);
+	}
+		}	
+		else if($_POST['level']=='UL'){
+	$selectUL='selected="selected"';
+	$level=7;
+	$l='L';
+	for($i=1;$i<=7;$i++){ 
+	unset($yearTag[$i]);
+		}
+	$x=array('4'=>'APR','7'=>'JULY','8'=>'AUG','11'=>'NOV','12'=>'DEC');
+	foreach($x as $k=>$v){
+	unset($months[$k]);
+	}
+		}//saini
+		else if($_POST['level']=='R3'){
+		$selectR3='selected="selected"';
+        $level=3;
+		}else if($_POST['level']=='R6'){
+		$selectR6='selected="selected"';
+        $level=6;
+		}else if($_POST['level']=='R10'){
+		$selectR10='selected="selected"';
+        $level=10;
+		}else{
+		$level=3;
+		}	
+}else{
+$selectR3='selected="selected"';
+$level=3;
+}
+if(isset($_POST['settime'])){
+$t=trim($_POST['settime']);
+}else{
+$t=9;
+}
+
+$select_seq=NULL;
+$select_ren=NULL;
+if(isset($_POST['displaytype']) AND trim($_POST['displaytype'])=='seq'){
+$select_seq='selected="selected"';
+}else{
+$select_ren='selected="selected"';
+}
+
+// get all month by tag
+
+$MONTHOFDAY['1']=array(1,8,15,22,29);
+$MONTHOFDAY['2']=array(2,9,16,23,30);
+$MONTHOFDAY['3']=array(3,10,17,24,31);
+$MONTHOFDAY['4']=array(4,11,18,25);
+$MONTHOFDAY['5']=array(5,12,19,26);
+$MONTHOFDAY['6']=array(6,13,20,27);
+$MONTHOFDAY['7']=array(7,14,21,28);
+
+//$MONTHTYPE['MIX']=array();
+$MONTHTYPE['A']=array(1=>'MANGO','TEA','WATCH','THRESH','FISH','ASH','SCHOOL');
+
+$MONTHTYPE['B']=array(1=>'TEA','WATCH','THRESH','FISH','ASH','SCHOOL','MANGO');
+
+$MONTHTYPE['C']=array(1=>'WATCH','THRESH','FISH','ASH','SCHOOL','MANGO','TEA');
+
+$MONTHTYPE['D']=array(1=>'THRESH','FISH','ASH','SCHOOL','MANGO','TEA','WATCH');
+
+$MONTHTYPE['E']=array(1=>'FISH','ASH','SCHOOL','MANGO','TEA','WATCH','THRESH');
+
+$MONTHTYPE['F']=array(1=>'ASH','SCHOOL','MANGO','TEA','WATCH','THRESH','FISH');
+
+$MONTHTYPE['G']=array(1=>'SCHOOL','MANGO','TEA','WATCH','THRESH','FISH','ASH');
+
+foreach($MONTHTYPE AS $mt=>$month){
+		foreach($month as $mk=>$m_ans){
+			foreach($MONTHOFDAY[$mk] as $date){
+			$monthtag[$mt][$date]=$m_ans;
+			}
+		}
+}
+
+//================
+$totalrdiobutton=5;
+
+$show=$months;
+$dateyear=$DATEOBJ;
+$y=array_rand($yearTag);
+$m=array_rand($show);
+
+$year=array_search($yearTag[$y],$DATEOBJ);
+if(!$year){
+$DATEOBJ=$dateyear;
+$year=array_search($yearTag[$y],$DATEOBJ);
+}
+$d=rand(1,31);
+if($d<10){
+$question='0'.$d.'='.$show[$m].'='.$year;
+}else{
+$question=$d.'='.$show[$m].'='.$year;
 }
 
 //echo  date("l", mktime($time));
 
 function dropdown($id){
-
 echo "<select id='$id'>";
 echo "<option>SELECT</option>";
-echo "<option>Sunday</option>";
-echo "<option>Monday</option>";
-echo "<option>Tuesday</option>";
-echo "<option>Wednesday</option>";
-echo "<option>Thursday</option>";
-echo "<option>Friday</option>";
-echo "<option>Saturday</option>";
+echo "<option>SCHOOL</option>";
+echo "<option>MANGO</option>";
+echo "<option>TEA</option>";
+echo "<option>WATCH</option>";
+echo "<option>THRESH</option>";
+echo "<option>FISH</option>";
+echo "<option>ASH</option>";
 echo "</select>";
 }
-
 
 if(isset($_POST['show'])){
 $show=$_POST['show'];
@@ -72,40 +244,24 @@ var b=1
 var y;
 
 function hello(){ 
-    var nums=new Array();
-    var xx=new Array();
-    var x=new Array();
-    var str='';
-   
-        
-   
-    	
-    	document.getElementById('tableid').style.display="block";
-    	
-    //	for(var a=0;a<15;a++){
-    	//	document.getElementById('t'+a).innerHTML="<span id='"+a+"'>"+xx[a]+" </span>";
-  	//	str=str+"<span id='"+a+"' style='height:20px;width:20px;' >"+xx[a]+" </span>";
-    		//}
- //  var str=xx.join(' ') 
-//document.getElementById('num').innerHTML=str;   
+var nums=new Array();
+var xx=new Array();
+var x=new Array();
+var str='';
+document.getElementById('tableid').style.display="block";
 var b=1
 startCount1(); 
-    }
+}
 
 //start Time in seconds.
-
-
-
 var z=4;
 var zi=0;
-
 function startCount1()
-{  
+{
    document.getElementById('Text1').innerHTML=b
-   if(b>10){ stopCount1();
+   if(b>9){ stopCount1();
    	document.getElementById('tableid').style.display="none";
    	document.getElementById('timeout').style.display="block";
-   	
    	}else{
     b=b+1
     y=setTimeout("startCount1()",1000);
@@ -120,12 +276,10 @@ function stopCount1()
 
 
 function show(){
-	
 	for(var i=0;i<30;i++){
 	document.getElementById(i).style.display="block";		
-		}
-	
-	}
+	}	
+}
 	
 </script>
 
@@ -179,7 +333,16 @@ width:20%;
   align:left;
 
  }
-
+#showanswer{
+  font-weight: bold; 
+  font-size: 10pt;
+  line-height: 14pt; 
+  font-family: helvetica; 
+  font-variant: normal;
+  font-style: normal;
+  color:white;
+  align:left;
+}
 </style>
 
 </head>
@@ -190,7 +353,7 @@ for($j=1;$j<15;$j++) {
    }   
    ?>
       <form>
-        <table width="700" cellpadding="4" cellspacing="10" style="border-right: #C1C1C1 1px solid; border-top: #C1C1C1 1px solid; border-bottom: #C1C1C1 1px solid; border-left: #C1C1C1 1px solid;">
+        <table width="500" cellpadding="4" cellspacing="10" style="border-right: #C1C1C1 1px solid; border-top: #C1C1C1 1px solid; border-bottom: #C1C1C1 1px solid; border-left: #C1C1C1 1px solid;">
             <tr>
 	<td height="40" align="right" colspan="7">
 	<a style="color:#FFFFFF; text-decoration:none" href="index.php" >BACK TO HOME</a>
@@ -212,34 +375,34 @@ for($j=1;$j<15;$j++) {
             <tr><td  width="100%" >
 
 <?php $c=0;
-$date=array_rand($DatesWithAns);
-$Answer=$DatesWithAns[$date];
-
+$date=$question;
+$AnswerOf=$monthtag[$answer[$y][$m]][$d];
 //foreach($DatesWithAns as $date=>$Answer){
-
- ?>
+?>
 <table style="display:none;" width="100%" id='tableid' >
 <tr>
 <td class='td1'>
 <?php echo $date; ?>
 </td>
 <td class='td2'>
-<?php dropdown($date); ?>
+<?php 
+$Value_of_date_id='mynewid';
+dropdown($Value_of_date_id); 
+?>
 </td>
-<td class='td3'><div id='div<?php echo $date; ?>' class='divclass'></div></td>
+<td class='td3'><div id='div<?php echo $Value_of_date_id; ?>' class='divclass'></div></td>
 <td class='td4' >
-<div id='p<?php echo $date; ?>' style="display:none;" ><?php echo $Answer;  ?></div>
-<input type='hidden' value="<?php echo $Answer;  ?>" id='ans<?php echo $date; ?>' />
+<div id='p<?php echo $Value_of_date_id; ?>' style="display:none;" ><?php echo $AnswerOf;  ?></div>
+<input type='hidden' value="<?php echo $AnswerOf;  ?>" id='ans<?php echo $Value_of_date_id; ?>' />
 </td>
 </tr>
-<?php 
- //} ?>
+
  </table>
  </td></tr>
  <tr>
  <td colspan="4">
 <div id='timeout' style="display:none;" > Time Out</div>
-<div id='showanswer' style="display:none;" ><?php echo $Answer;?></div>
+<div id='showanswer' style="display:none;" ><?php echo $date."=>".$AnswerOf;?></div>
 
 </td></tr>
   <tr>
@@ -265,6 +428,7 @@ $("select").change(function () {
 var selans=$("#"+did).val();
 
 var answer=$("#ans"+did).val();
+//alert(selans+'=='+answer);
 if(selans==answer){
 $("#div"+did).css("background-color","green");
 }else{
@@ -284,7 +448,7 @@ $('#showans').click(function() {
  
  $('#reload').click(function() {
 
-	var url = "http://localhost/memo/calender/datewithtime.php";    
+var url = "http://localhost/memo/calender/datewithtime.php";    
 $(location).attr('href',url);
 
 

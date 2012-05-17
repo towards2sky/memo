@@ -44,15 +44,17 @@ $spacepoint=4;
 	<div id="examples_container">
 		<div class="header">
 			<div class="project_title">
-				<br/>
-				<h1 class="example_title" style="width:300px;">You can do it.</h1>
+				<h2 class="example_title" style="width:200px;">You can do it.</h2>
 			</div>
-
+            <div class="project_title">
+            
+            <h2 class="example_title" style="width:300px; margin-left:50px;">My record time:4:18 </h2>
+            </div>
 			<div class="example_title">
-				<h1>Magic of Brain.</h1>
+				<h2>Magic of Brain.</h2>
 			</div>
 			
-			<br style="clear: both;">		
+			<div style="clear: both;"></div>		
 		</div>
 		<div class="start_content"></div>
 

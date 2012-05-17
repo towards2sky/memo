@@ -7,7 +7,7 @@
 <table align="center">
 <tr><td height="40"></td></tr>
 
-<tr><td><hr /></td></tr>
+<tr><td style="color:#FFFFFF; text-decoration:none"><h1>I have made Memory Record <br />in Indian Book of Record on 12-5-2012</h1><hr /></td></tr>
 <tr><td height="40" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#FFFFFF;">Practice With Time</td></tr>
 <tr><td><hr /></td></tr>
 </tr><tr>

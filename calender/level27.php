@@ -418,7 +418,6 @@ Time:
 $xt=0;
 $show=$months;
 $dateyear=$DATEOBJ;
-
 for($i=0;$i<$level;$i++){ $show=$months;
 ?>
 <tr>

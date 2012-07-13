@@ -1,6 +1,6 @@
 <?php 
 session_start();
-
+error_reporting(0);
 if(isset($_SESSION['previous_values']) && count($_SESSION['previous_values']) >100){unset($_SESSION['previous_values']);}
 
 if(isset($_POST['lavel']) && $_POST['lavel']!='A' && $_POST['lavel']!='R'){	unset($_SESSION['previous_values']);	}

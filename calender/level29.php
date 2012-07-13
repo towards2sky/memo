@@ -481,12 +481,110 @@ $ask=$year.'=>'.$show[$m];
 
 $ansval=$answer[$y][$m];
 }
-
-
-//echo $months[$m];
-
 ?>
 
+<span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $ask; ?></span></td>
+<td align="center" valign="middle" >
+<div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $ansval; ?></div>
+<input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="7" value="" maxlength="7" onKeyUp="strUpperCase(this);"  />
+<input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $ansval; ?>" />
+</td>
+<?php 
+$ansIds[]=trim($y.$m.$xt);
+unset($show[$m]);
+unset($DATEOBJ[$year]);
+if(count($show)<1){ $show=$months; }
+
+
+}?>
+</tr>
+</table>
+</td>
+</tr>
+<?php 
+unset($yearTag[$y]);
+ } ?>
+<!--   this is for 21,22,23,24 centure year prectices -->
+<tr><td colspan="2" align="center" style="padding-top:20px;"><hr></td></tr>
+ <?php
+$otherCentury=array(18=>22,19=>23,20=>24,21=>25); 
+$xt=0;
+$show=$months;
+$dateyear=$DATEOBJ;
+for($i=0;$i<3;$i++){ $show=$months;
+?>
+<tr>
+<td width="100%" align="left" colspan="2" style="padding-top:10px; ">
+<table align="left" width="100%">
+<tr>
+<?php 
+if($select_seq){
+$y=array_rand($yearTag);}
+
+for($k=1;$k<6;$k++){ ++$xt; 
+if(!$select_seq){
+$y=array_rand($yearTag);}
+?>
+<td  align="right" width="150px">
+<?php 
+$s=rand(1,15);
+if($s==1 ||$s==3 ||$s==7 ||$s==4 ||$s==6){
+$m=array_rand($show);
+
+$year=$yearTag[$y];//array_search($yearTag[$y],$DATEOBJ);
+if(!$year){
+$DATEOBJ=$dateyear;
+$year=$yearTag[$y];//array_search($yearTag[$y],$DATEOBJ);
+}
+$d=rand(1,31);
+if($d<10){
+$ask=$year.'='.$show[$m].'=0'.$d;
+}else{
+$ask=$year.'='.$show[$m].'='.$d;
+}
+$ansval=$monthtag[$answer[$y][$m]][$d];
+}
+else if($s==2 ||$s==4 ||$s==8 ||$s==9){
+$m=array_rand($show);
+
+$year=array_search($yearTag[$y],$DATEOBJ);
+if(!$year){
+$DATEOBJ=$dateyear;
+$year=array_search($yearTag[$y],$DATEOBJ);
+
+}
+$d=rand(1,31);
+if($d<10){
+$ask=$year.'='.$show[$m].'=0'.$d;
+}else{
+$ask=$year.'='.$show[$m].'='.$d;
+}
+$ansval=$monthtag[$answer[$y][$m]][$d];
+}else
+{
+$m=array_rand($show);
+
+$year=array_search($yearTag[$y],$DATEOBJ);
+if(!$year){
+$DATEOBJ=$dateyear;
+$year=array_search($yearTag[$y],$DATEOBJ);
+}
+
+$cenNum = substr($year,0,-2);
+$curYear = substr($year,-2);
+if(array_key_exists($cenNum, $otherCentury)) {
+    $year = $otherCentury[$cenNum].$curYear;
+} else {
+    $year = $cenNum.$curYear;
+}
+
+$ask=$year.'=>'.$show[$m];
+
+$ansval=$answer[$y][$m];
+}
+
+?>
+<!-- END  this is for 21,22,23,24 centure year prectices -->
 
 <span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $ask; ?></span></td>
 <td align="center" valign="middle" >

@@ -483,6 +483,73 @@ if(count($show)<1){ $show=$months; }
 <?php 
 unset($yearTag[$y]);
  } ?>
+ 
+ <!--   this is for 21,22,23,24 centure year prectices -->
+<tr><td colspan="2" align="center" style="padding-top:20px;"><hr></td></tr>
+<?php
+$otherCentury=array(18=>22,19=>23,20=>24,21=>25); 
+$xt=0;
+$show=$months;
+$dateyear=$DATEOBJ;
+for($i=0;$i<$level;$i++){ $show=$months;
+?>
+<tr>
+<td width="100%" align="left" colspan="2" style="padding-top:10px; ">
+<table align="left" width="100%" >
+<tr>
+<?php 
+if($select_seq){
+$y=array_rand($yearTag);}
+
+for($k=1;$k<7;$k++){ ++$xt; 
+if(!$select_seq){
+$y=array_rand($yearTag);}
+?>
+<td  align="right" width="150px">
+<?php 
+$m=array_rand($show);
+
+$year=array_search($yearTag[$y],$DATEOBJ);
+if(!$year){
+$DATEOBJ=$dateyear;
+$year=array_search($yearTag[$y],$DATEOBJ);
+}
+$cenNum = substr($year,0,-2);
+$curYear = substr($year,-2);
+if(array_key_exists($cenNum, $otherCentury)) {
+    $year = $otherCentury[$cenNum].$curYear;
+} else {
+    $year = $cenNum.$curYear;
+}
+
+$d=rand(1,31);
+if($d<10){
+$ask=$year.'='.$show[$m].'=0'.$d;
+}else{
+$ask=$year.'='.$show[$m].'='.$d;
+}
+//echo $months[$m];?><span style="color:#FFFFFF; font-weight:bold;"><?php if(strlen($m)==1){echo '';} echo $ask; ?></span></td>
+<td align="center" valign="middle" >
+<div style="display:none;" class="answer" id="d<?php echo trim($y.$m.$xt); ?>" ><?php echo $monthtag[$answer[$y][$m]][$d]; ?></div>
+<input id="<?php echo trim($y.$m.$xt); ?>" type="text" size="7" value="" maxlength="7" onKeyUp="strUpperCase(this);"  />
+<input type="hidden" id="a<?php echo trim($y.$m.$xt); ?>" value="<?php echo $monthtag[$answer[$y][$m]][$d]; ?>" />
+</td>
+<?php
+$ansIds[]=trim($y.$m.$xt);
+unset($show[$m]);
+unset($DATEOBJ[$year]);
+if(count($show)<1){ $show=$months; }
+
+}?>
+</tr>
+</table>
+</td>
+</tr>
+<?php 
+unset($yearTag[$y]);
+ } ?>
+ 
+ <!-- END  this is for 21,22,23,24 centure year prectices -->
 <tr><td colspan="2" align="center" style="padding-top:20px;">
 <input type="button" name="check" value="Check" onClick="javascript: checkanswer();" />
 <input type="button" name="check" value="Show Ans" onClick="javascript: showAnser();" />
